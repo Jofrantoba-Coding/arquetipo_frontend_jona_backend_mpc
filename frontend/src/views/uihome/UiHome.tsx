@@ -11,13 +11,10 @@ export class UiHome extends Component {
         north={<Header />}
         south={<Footer />}
         center={
-          <UiIniciarSesionImpl 
-            login={() => {}} 
-            irCrearCuenta={() => {}}  
-            irRecuperarClave={() => {}}  
-          />
+          <UiIniciarSesionImpl/>
         }
       />
     );
   }
 }
+

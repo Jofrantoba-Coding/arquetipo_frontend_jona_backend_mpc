@@ -1,53 +1,67 @@
-//UiIniciarSesionImpl.tsx
-import { login } from '../../services/auth';
 import { UiIniciarSesion } from './UiIniciarSesion';
+import { UiIniciarSesionProps } from './UiIniciarSesionProps';
+import { login } from '../../services/auth';
 
-// Clase de implementación que hereda de la clase plantilla UiIniciarSesion
 export class UiIniciarSesionImpl extends UiIniciarSesion {
 
-
-  componentDidMount() {
-    // Código que necesita ejecutarse después de que el componente se monte.
-    console.log('UiIniciarSesionImpl se ha montado');
+  constructor(props: UiIniciarSesionProps) {
+    super(props);
+    this.login = this.login.bind(this);
+    this.irCrearCuenta = this.irCrearCuenta.bind(this);
+    this.irRecuperarClave = this.irRecuperarClave.bind(this);
   }
 
-  // Sobrescribir el método de inicio de sesión
   async login(email: string, password: string): Promise<void> {
-    console.log(`New Iniciando sesión desde la clase de implementación con email: ${email} y contraseña: ${password}`);
-    const auth = await login();
-    if(auth.status) {
-      window.location.href = '/home';
+    console.log(`Iniciando sesión desde la clase de implementación con email: ${email} y contraseña: ${password}`);
+    // Lógica para iniciar sesión, por ejemplo, llamada a una API o autenticación
+    try {
+      // Lógica de autenticación (supongamos que aquí hay una llamada a una API)
+      const response: any = await login()
+      
+      if (response.status) {
+        // Autenticación exitosa, redirigir a la página de inicio
+        window.location.href = '/home';
+      } else {
+        // Mostrar mensaje de error
+        window.alert(response.error.message || 'Error de inicio de sesión');
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      window.alert('Error al iniciar sesión');
     }
-    console.log('auth', auth)
-    
   }
 
-  // Sobrescribir otros métodos según sea necesario
   irCrearCuenta(): void {
-    window.alert("Click a ir a cuenta");
-    console.log('Navegando a la página de cuenta desde la clase de implementación');
-    // Agregar la lógica específica para ir a la página de cuenta
+    // Lógica para ir a la página de creación de cuenta
+    console.log('Navegando a la página de creación de cuenta desde la clase de implementación');
+    // Por ejemplo, redirigir a '/registro'
+    window.location.href = '/registro';
   }
 
   irRecuperarClave(): void {
-    window.alert("Click a ir a recuperar clave");
     // Lógica para ir a la página de recuperación de contraseña
-    console.log('Navegando a la página de recuperación de contraseña');
+    console.log('Navegando a la página de recuperación de contraseña desde la clase de implementación');
+    // Por ejemplo, redirigir a '/recuperar-clave'
+    window.location.href = '/recuperar-clave';
   }
 
   isValidData(email: string, password: string): boolean {
-    console.log('email:', email)
-    console.log('password:', password)
-    return true
+    // Lógica para validar los datos de inicio de sesión (ejemplo simple aquí, puede ser más complejo)
+    return email !== '' && password !== '';
   }
-  
-  render(): JSX.Element {
+
+  render() {
     return (
-      <UiIniciarSesion
-        login={this.login}
-        irCrearCuenta={this.irCrearCuenta}
-        irRecuperarClave={this.irRecuperarClave}
-      />
+      <div>
+        {super.render()}
+      </div>
     );
   }
+
+  static defaultProps: Partial<UiIniciarSesionProps> = {
+    login: UiIniciarSesionImpl.prototype.login,
+    irCrearCuenta: UiIniciarSesionImpl.prototype.irCrearCuenta,
+    irRecuperarClave: UiIniciarSesionImpl.prototype.irRecuperarClave,
+  };
+
 }

@@ -1,4 +1,4 @@
-import { setToken } from "../methods/storage"
+import { clearSession, setToken } from "../methods/storage"
 
 export const login = async () => {
     const data = {
@@ -26,6 +26,7 @@ export const requestRefreshAccessToken = () => {
 }
 
 export const logout = async () => {
-    
+    clearSession()
+    return true
 }
 

@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './protectRouter'
 import { UiHome } from './views/uihome/UiHome';
 import { UiSesionHome } from './views/uisesionhome/UiSesionHome';
