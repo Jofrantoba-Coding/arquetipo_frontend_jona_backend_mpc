@@ -16,9 +16,9 @@ export class UiIniciarSesionImpl extends UiIniciarSesion {
     // Lógica para iniciar sesión, por ejemplo, llamada a una API o autenticación
     try {
       // Lógica de autenticación (supongamos que aquí hay una llamada a una API)
-      const response: any = await login()
+      const response: any = await login({email, password})
       
-      if (response.status) {
+      if (response) {
         // Autenticación exitosa, redirigir a la página de inicio
         window.location.href = '/home';
       } else {

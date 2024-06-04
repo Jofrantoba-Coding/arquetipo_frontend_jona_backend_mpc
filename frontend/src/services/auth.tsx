@@ -1,32 +1,133 @@
-import { clearSession, setToken } from "../methods/storage"
+import axios, { AxiosRequestConfig } from 'axios';
+import qs from 'qs';
+import { clearSession, getRefreshToken, setRefreshToken, setSession, setToken, setTokenExpiration } from "../methods/storage"
 
-export const login = async () => {
-    const data = {
-        status: true,
-        message: "User authenticated successfully",
-        access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNDRiMDA1MjAtMTZiNi0xMWVmLWFkODItYWRlMWZkODczNzA4IiwibmFtZSI6IlRlc3QiLCJsYXN0X25hbWUiOiJUZXN0IiwiZW1haWwiOiJoYW5zZ2lhbmZyYW5jbzNAZ21haWwuY29tIiwicGhvbmUiOiIrNTE5NDUxMjI2ODAiLCJiaXJ0aGRhdGUiOm51bGwsImdlbmRlciI6bnVsbCwibGlua2VkaW5fdXJsIjpudWxsLCJ0d2l0dGVyX3VybCI6bnVsbCwiZmFjZWJvb2tfdXJsIjpudWxsLCJpbnN0YWdyYW1fdXJsIjpudWxsLCJpYXQiOjE3MTY4NzAwMDV9.2jw3pgzPYW6jZNBkZn6iCORYNA0btV2xa2OKxa8ajZ0",
-        token_type: "Bearer",
-        user: {
-            user_id: "44b00520-16b6-11ef-ad82-ade1fd873708",
-            name: "Test",
-            last_name: "Test",
-            email: "test@test.com"
-        }
-    }
-    setToken(data.access_token)
-    return data
+interface UserLogin {
+    email: string;
+    password: string;
 }
+
+export const login = async (user: UserLogin) => {
+    const data = qs.stringify({
+        'client_id': process.env.REACT_APP_AUTH_CLIENT_ID,
+        'client_secret': process.env.REACT_APP_AUTH_CLIENT_SECRET,
+        'scope': process.env.REACT_APP_AUTH_SCOPE,
+        'grant_type': 'password',
+        'username': user.email,
+        'password': user.password
+    });
+
+    let config: AxiosRequestConfig = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${process.env.REACT_APP_AUTH_BASE_URL}/token`,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: data
+    };
+
+    try {
+        const response = await axios.request(config);
+        if (response.status === 200) {
+            const responseData = response.data;
+            const { access_token, refresh_token, expires_in, ...sessionData } = responseData;
+            setSession({expires_in, ...sessionData});
+            setToken(access_token);  
+            setRefreshToken(refresh_token);
+            setTokenExpiration(expires_in);
+            scheduleTokenRefresh(expires_in);
+            return responseData;
+          } else {
+            console.error(`Unexpected response status: ${response.status}`);
+            return false;
+          }
+    } catch (error) {
+        console.error(error);
+        throw new Error('Login failed');
+    }
+};
 
 export const requestAccessToken = () => {
 
 }
 
-export const requestRefreshAccessToken = () => {
-    
+export const requestRefreshAccessToken = async () => {
+    const refreshToken = getRefreshToken()
+    const data = qs.stringify({
+        'client_id': process.env.REACT_APP_AUTH_CLIENT_ID,
+        'client_secret': process.env.REACT_APP_AUTH_CLIENT_SECRET,
+        'grant_type': 'refresh_token',
+        'refresh_token': refreshToken
+    });
+
+    let config: AxiosRequestConfig = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${process.env.REACT_APP_AUTH_BASE_URL}/token`,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: data
+    };
+
+    try {
+        const response = await axios.request(config);
+        if (response.status === 200) {
+            const responseData = response.data;
+            const { access_token, refresh_token, expires_in, ...sessionData } = responseData;
+            setSession({expires_in, ...sessionData});
+            setToken(access_token);
+            setRefreshToken(refresh_token);
+            setTokenExpiration(expires_in);
+            scheduleTokenRefresh(expires_in);
+            return responseData;
+          } else {
+            console.error(`Unexpected response status: ${response.status}`);
+            return false;
+          }
+    } catch (error) {
+        console.error(error);
+        throw new Error('Login failed');
+    }
 }
 
-export const logout = async () => {
-    clearSession()
-    return true
-}
+export const logout = async (): Promise<boolean> => {
+    const refreshToken = getRefreshToken()
+    const data = qs.stringify({
+        'redirect_uri': 'https://ide.icl.gob.pe',
+        'client_id': process.env.REACT_APP_AUTH_CLIENT_ID,
+        'client_secret': process.env.REACT_APP_AUTH_CLIENT_SECRET,
+        'refresh_token': refreshToken
+    });
 
+    const config: AxiosRequestConfig = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${process.env.REACT_APP_AUTH_BASE_URL}/logout`,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: data
+    };
+
+    try {
+        const response = await axios.request(config);
+        if (response.status === 204) {
+            clearSession();
+            return true;
+        } else {
+            console.error(`Unexpected response status: ${response.status}`);
+            return false;
+        }
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};
+
+export const scheduleTokenRefresh = (expires_in: number) => {
+    const refreshTime = (expires_in - 60) * 1000; // Refrescar 1 minuto antes de que caduque
+    console.log(refreshTime);
+    setTimeout(requestRefreshAccessToken, refreshTime);
+};
