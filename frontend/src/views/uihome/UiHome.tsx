@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { UiIniciarSesionImpl } from '../uiiniciarsesion/UiIniciarSesionImpl';
 import BorderLayout from '../../uilayouts/BorderLayout';
-import Header from '../../uiutils/Header';
-import Footer from '../../uiutils/Footer';
+import UiTitleBar from '../../uiutils/uititlebar/UiTitleBar';
+import Footer from '../../uiutils/uifooterbar/UiFooterBar';
 
 export class UiHome extends Component {
   render() {
     return (
       <BorderLayout
-        north={<Header />}
+        north={<UiTitleBar />}
         south={<Footer />}
         center={
           <UiIniciarSesionImpl/>

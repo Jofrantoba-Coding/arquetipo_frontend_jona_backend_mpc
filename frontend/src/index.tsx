@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './app/App';
 import reportWebVitals from './reportWebVitals';
-import './resources/css/index.css';
 import { scheduleTokenRefresh, requestRefreshAccessToken } from './services/auth';
 import { getTokenExpiration } from './methods/storage';
+import './resources/css/index.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

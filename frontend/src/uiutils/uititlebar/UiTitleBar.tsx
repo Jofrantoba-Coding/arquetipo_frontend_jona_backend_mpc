@@ -1,9 +1,9 @@
 import React from 'react';
-import Logo from '../resources/images/logo-minjus.jpg'
-import { getToken } from '../methods/storage';
-import Button from '../components/Button';
-import { logout } from '../services/auth';
-const Header: React.FC = () => {
+import Logo from '../../resources/images/logo-minjus.jpg'
+import { getToken } from '../../methods/storage';
+import UiButton from '../uibutton/UiButton';
+import { logout } from '../../services/auth';
+const UiTitleBar: React.FC = () => {
   
   const auth = getToken()
 
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
               <img src={Logo} alt="" />
             </div>
             <div className="menu">
-              <Button
+              <UiButton
                 type={'button'}
                 text={'Salir'}
                 callback={ handleLogout } 
@@ -48,4 +48,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default UiTitleBar;

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ButtonInterface } from './InterButton';
+import { ButtonInterface } from './InterUiButton';
 
-const Button: React.FC<ButtonInterface> = ({ type, text, callback }) => {
+const UiButton: React.FC<ButtonInterface> = ({ type, text, callback }) => {
   return (
     <button 
         type={type}
@@ -13,4 +13,4 @@ const Button: React.FC<ButtonInterface> = ({ type, text, callback }) => {
   );
 };
 
-export default Button;
+export default UiButton;

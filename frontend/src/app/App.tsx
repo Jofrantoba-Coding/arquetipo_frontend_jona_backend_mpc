@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ProtectedRoute from './protectRouter'
-import { UiHome } from './views/uihome/UiHome';
-import { UiSesionHome } from './views/uisesionhome/UiSesionHome';
+import ProtectedRoute from '../protectRouter'
+import { UiHome } from '../views/uihome/UiHome';
+import { UiSesionHome } from '../views/uisesionhome/UiSesionHome';
 import './App.css';
 
 const App = () => {
