@@ -17,7 +17,7 @@ const UiTitleBar: React.FC = () => {
     <>
     { auth ? (
       <header className="header p-[20px] shadow-md bg-white">
-        <div className="container items-center relative max-w-[1264px] m-auto">
+        <div className="container items-center relative m-auto">
           <div className="flex justify-between">
             <div className="logo max-w-[180px]">
               <img src={Logo} alt="" />
