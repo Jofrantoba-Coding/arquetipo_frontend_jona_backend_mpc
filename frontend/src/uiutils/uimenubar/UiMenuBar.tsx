@@ -1,7 +1,7 @@
 import React from 'react';
 import { MenuProps, MenuItem } from './InterUiMenuBar';
 
-const UiMenuBar: React.FC<MenuProps> = ({ menuData }) => {
+const UiMenuBar: React.FC<MenuProps> = ({ data }) => {
     const renderMenu = (items: MenuItem[]) => {
         return (items.map((item) => (
             <li key={item.id} className="relative group">
@@ -21,7 +21,7 @@ const UiMenuBar: React.FC<MenuProps> = ({ menuData }) => {
     return (
         <nav className="bg-[#ededed]">
             <ul className="flex space-x-4">
-                {renderMenu(menuData)}
+                {renderMenu(data)}
             </ul>
         </nav>
     );

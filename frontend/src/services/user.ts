@@ -4,11 +4,7 @@ import { getToken } from '../methods/storage';
 export const getCurrentProfile = async () => {
     
     const token = getToken()
-    const data = JSON.stringify({
-        idClienteSistema: 7,
-        idSistema: 1
-    });
-
+    
     const config: AxiosRequestConfig = {
         method: 'post',
         maxBodyLength: Infinity,
@@ -17,7 +13,6 @@ export const getCurrentProfile = async () => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        data: data
     };
 
     try {

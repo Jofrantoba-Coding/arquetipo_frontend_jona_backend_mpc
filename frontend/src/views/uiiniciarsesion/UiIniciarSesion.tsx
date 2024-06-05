@@ -51,7 +51,7 @@ export class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSe
             setSubmitting(false);
           }}
         >
-          <Form className="space-y-2 w-full sm:w-[400px]">
+          <Form className="space-y-2 w-full">
             <div className="grid w-full items-center">
               <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Correo Electrónico</label>
               <Field
@@ -70,7 +70,7 @@ export class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSe
               />
               <ErrorMessage name="password" component="div" className="text-[#DD3333] text-sm" />
             </div>
-            <div className="w-full">
+            <div className="w-full pt-[20px]">
               <Button
                 type={'submit'}
                 text={'Iniciar Sesión'}

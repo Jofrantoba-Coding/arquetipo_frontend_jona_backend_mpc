@@ -20,7 +20,7 @@ export class UiIniciarSesionImpl extends UiIniciarSesion {
       
       if (response) {
         // Autenticación exitosa, redirigir a la página de inicio
-        window.location.href = '/home';
+        window.location.href = '/';
       } else {
         // Mostrar mensaje de error
         window.alert(response.error.message || 'Error de inicio de sesión');

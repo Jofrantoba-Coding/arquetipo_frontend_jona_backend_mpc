@@ -1,5 +1,7 @@
 export interface ButtonInterface {
-    type: 'button' | 'submit'
+    type: 'button' | 'submit' | 'link';
     text: string;
-    callback?: () => void
+    icon?: string;
+    callback?: () => void;
+    href?: string; 
 }

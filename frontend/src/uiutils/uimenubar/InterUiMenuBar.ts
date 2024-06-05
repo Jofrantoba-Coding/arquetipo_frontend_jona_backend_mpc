@@ -11,5 +11,5 @@ export interface MenuItem {
 }
 
 export interface MenuProps {
-    menuData: MenuItem[];
+    data: MenuItem[];
 }
