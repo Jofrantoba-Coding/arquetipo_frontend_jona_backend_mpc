@@ -4,7 +4,8 @@ import UiTitleBar from '../../uiutils/uititlebar/UiTitleBar';
 import Footer from '../../uiutils/uifooterbar/UiFooterBar';
 import UiMenuBar from '../../uiutils/uimenubar/UiMenuBar';
 import { getMenu } from '../../services/menu';
-import { getCurrentProfile } from '../../services/user';
+import { getCurrentProfile } from '../../services/perfil';
+import UiTabPanel from '../uitabpanel/UiTabPanel';
 
 export class UiSesionHome extends Component {
 
@@ -37,9 +38,12 @@ export class UiSesionHome extends Component {
         }
         south={<Footer />}
         center={
-          !loading && (
+          <>
+          {!loading && (
             menuData && <UiMenuBar data={menuData} />
-          )
+          )}
+          <UiTabPanel />
+          </>
         }
       />
     );
