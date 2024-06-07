@@ -1,4 +1,4 @@
-export interface InterUiHomeDistrito {
+export interface InterUiDistritoMantenimiento {
     id: number;
     descripcion: string;
     codigodistrito: string;

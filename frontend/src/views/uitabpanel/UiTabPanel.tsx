@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import UiHomeDistrito from '../uihomedistrito/UiHomeDistrito';
+import UiDistritoMantenimiento from '../uidistritomantenimiento/UiDistritoMantenimiento';
 
 const UiTabPanel = () => {
   const [activeTab, setActiveTab] = useState('distrito');
@@ -60,7 +60,7 @@ const UiTabPanel = () => {
         </ul>
       </div>
       <div className="p-4">
-        {activeTab === 'distrito' && <UiHomeDistrito />}
+        {activeTab === 'distrito' && <UiDistritoMantenimiento />}
         {activeTab === 'dashboard' && <div>Dashboard Content</div>}
       </div>
     </div>

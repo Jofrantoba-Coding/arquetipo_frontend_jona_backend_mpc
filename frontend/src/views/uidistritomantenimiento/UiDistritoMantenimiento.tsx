@@ -1,14 +1,20 @@
 import { Component } from "react";
-import { getDistritos } from "../../services/distrito";
+import { getDistritos, updateDistrito } from "../../services/distrito";
 import UiIcon from "../../uiutils/uiicon/UiIcon";
-import { UiHomeDistritoState } from "./UiHomeDistritoState";
+import { UiDistritoMantenimientoState } from "./UiDistritoMantenimientoState";
+import UiDistritoModal from "../uidistritomodal/UiDistritoModal";
+import { InterUiDistritoUpdate } from "../uidistritomodal/InterUiDistritoModal";
+import { InterUiDistritoMantenimiento } from "./InterUiDistritoMantenimiento";
 
-class UiHomeDistrito extends Component<{}, UiHomeDistritoState> {
+class UiDistritoMantenimiento extends Component<{}, UiDistritoMantenimientoState> {
     constructor(props: {}) {
         super(props);
         this.state = {
             distritos: [],
-            dropdownOpen: false
+            dropdownOpen: false,
+            modalOpen: false,
+            modalMode: 'create',
+            selectedDistrito: null
         };
     }
 
@@ -27,9 +33,38 @@ class UiHomeDistrito extends Component<{}, UiHomeDistritoState> {
         }));
     }
 
-    render() {
-        const { distritos, dropdownOpen } = this.state;
+    editModal = (distrito: InterUiDistritoMantenimiento) => {
+        this.setState({
+            modalOpen: true,
+            modalMode: 'edit',
+            selectedDistrito: distrito
+        });
+    }
 
+    viewModal = (distrito: InterUiDistritoMantenimiento) => {
+        this.setState({
+            modalOpen: true,
+            modalMode: 'view',
+            selectedDistrito: distrito
+        });
+    }
+
+    closeModal = () => {
+        this.setState({
+            modalOpen: false,
+            selectedDistrito: null
+        });
+    }
+
+    handleEditDistrito = async (updatedDistrito: InterUiDistritoUpdate) => {
+        console.log('Updated Distrito:', updatedDistrito);
+        await updateDistrito(updatedDistrito);
+        this.closeModal();
+        this.fetchDistritos();
+    }
+
+    render() {
+        const { distritos, dropdownOpen, modalOpen, modalMode, selectedDistrito } = this.state;
         return (
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white">
@@ -123,10 +158,18 @@ class UiHomeDistrito extends Component<{}, UiHomeDistritoState> {
                                 <td className="px-6 py-4">{item.descripcionprovincia}</td>
                                 <td className="px-6 py-4">{item.descripciondepartamento}</td>
                                 <td className="px-6 py-4">
-                                    <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2">
+                                    <button 
+                                        type="button" 
+                                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2"
+                                        onClick={() => this.viewModal(item)}
+                                    >
                                         <UiIcon name="View" />
                                     </button>
-                                    <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2">
+                                    <button
+                                        type="button"
+                                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2"
+                                        onClick={() => this.editModal(item)}
+                                    >
                                         <UiIcon name="Edit" />
                                     </button>
                                     <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2">
@@ -137,9 +180,19 @@ class UiHomeDistrito extends Component<{}, UiHomeDistritoState> {
                         ))}
                     </tbody>
                 </table>
+                
+                { modalOpen && (
+                    <UiDistritoModal
+                        onClose={this.closeModal}
+                        onSubmit={this.handleEditDistrito}
+                        mode={modalMode}
+                        data={selectedDistrito}
+                    />
+                )}
+                
             </div>
         );
     }
 }
 
-export default UiHomeDistrito;
+export default UiDistritoMantenimiento;

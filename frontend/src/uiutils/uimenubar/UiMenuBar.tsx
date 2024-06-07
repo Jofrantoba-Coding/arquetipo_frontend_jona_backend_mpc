@@ -19,7 +19,7 @@ const UiMenuBar: React.FC<MenuProps> = ({ data }) => {
     };
 
     return (
-        <nav className="bg-[#ededed]">
+        <nav className="relative bg-[#ededed] z-10">
             <ul className="flex space-x-4">
                 {renderMenu(data)}
             </ul>

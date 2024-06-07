@@ -1,4 +1,4 @@
-import { FaBeer, FaEdit, FaEye, FaPowerOff, FaTrash } from 'react-icons/fa';
+import { FaBeer, FaEdit, FaEye, FaPowerOff, FaSave, FaTrash } from 'react-icons/fa';
 import { IconInterface } from './InterUiIcon';
 import { IconType } from 'react-icons';
 
@@ -7,6 +7,7 @@ const UiIcon: React.FC<IconInterface> = ({ name, size, color, className }) => {
     Beer: FaBeer,
     Power: FaPowerOff,
     Edit: FaEdit,
+    Save: FaSave,
     Delete: FaTrash,
     View: FaEye
   };
