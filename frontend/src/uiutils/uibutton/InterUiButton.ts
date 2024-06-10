@@ -4,4 +4,5 @@ export interface ButtonInterface {
     icon?: string;
     callback?: () => void;
     href?: string; 
+    color?: 'blue' | 'alternative' | 'dark' | 'light' | 'green' | 'red' | 'yellow' | 'purple';
 }

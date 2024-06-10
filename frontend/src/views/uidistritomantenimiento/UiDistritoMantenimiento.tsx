@@ -1,17 +1,18 @@
 import { Component } from "react";
 import { getDistritos, updateDistrito } from "../../services/distrito";
-import UiIcon from "../../uiutils/uiicon/UiIcon";
 import { UiDistritoMantenimientoState } from "./UiDistritoMantenimientoState";
-import UiDistritoModal from "../uidistritomodal/UiDistritoModal";
-import { InterUiDistritoUpdate } from "../uidistritomodal/InterUiDistritoModal";
+import { InterUiDistritoModalCrud } from "../uidistritomodal/InterUiDistritoModal";
 import { InterUiDistritoMantenimiento } from "./InterUiDistritoMantenimiento";
+import { UiDistritoMantenimientoProps } from "./UiDistritoMantenimientoProps";
+import UiDistritoModal from "../uidistritomodal/UiDistritoModal";
+import UiIcon from "../../uiutils/uiicon/UiIcon";
+import UiButton from "../../uiutils/uibutton/UiButton";
 
-class UiDistritoMantenimiento extends Component<{}, UiDistritoMantenimientoState> {
-    constructor(props: {}) {
+class UiDistritoMantenimiento extends Component<UiDistritoMantenimientoProps, UiDistritoMantenimientoState> {
+    constructor(props: UiDistritoMantenimientoProps) {
         super(props);
         this.state = {
             distritos: [],
-            dropdownOpen: false,
             modalOpen: false,
             modalMode: 'create',
             selectedDistrito: null
@@ -25,12 +26,6 @@ class UiDistritoMantenimiento extends Component<{}, UiDistritoMantenimientoState
     fetchDistritos = async () => {
         const data = await getDistritos(10, 0);
         this.setState({ distritos: data });
-    }
-
-    toggleDropdown = () => {
-        this.setState((prevState) => ({
-            dropdownOpen: !prevState.dropdownOpen
-        }));
     }
 
     editModal = (distrito: InterUiDistritoMantenimiento) => {
@@ -56,58 +51,20 @@ class UiDistritoMantenimiento extends Component<{}, UiDistritoMantenimientoState
         });
     }
 
-    handleEditDistrito = async (updatedDistrito: InterUiDistritoUpdate) => {
-        console.log('Updated Distrito:', updatedDistrito);
+    handleEditDistrito = async (updatedDistrito: InterUiDistritoModalCrud) => {
         await updateDistrito(updatedDistrito);
         this.closeModal();
         this.fetchDistritos();
     }
 
     render() {
-        const { distritos, dropdownOpen, modalOpen, modalMode, selectedDistrito } = this.state;
+        const { distritos, modalOpen, modalMode, selectedDistrito } = this.state;
         return (
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white">
-                    <div>
-                        <button
-                            id="dropdownActionButton"
-                            onClick={this.toggleDropdown}
-                            className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5"
-                            type="button"
-                        >
-                            <span className="sr-only">Action button</span>
-                            Acciones
-                            <svg
-                                className="w-2.5 h-2.5 ms-2.5"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="m1 1 4 4 4-4"
-                                />
-                            </svg>
-                        </button>
-                        {dropdownOpen && (
-                            <div
-                                id="dropdownAction"
-                                className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
-                            >
-                                <ul className="py-1 text-sm text-gray-700" aria-labelledby="dropdownActionButton">
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 hover:bg-gray-100">Agregar</a>
-                                    </li>
-                                </ul>
-                                <div className="py-1">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Exportar</a>
-                                </div>
-                            </div>
-                        )}
+                    <div className="flex gap-2">
+                        <UiButton type="button" text={'Agregar'} color={'dark'} icon="Add" />
+                        <UiButton type="button" text={'Exportar'} color={'green'} icon="Export" />
                     </div>
                     <label htmlFor="table-search" className="sr-only">Buscar</label>
                     <div className="relative">

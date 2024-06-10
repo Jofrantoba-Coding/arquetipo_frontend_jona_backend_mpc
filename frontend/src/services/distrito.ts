@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { getToken } from '../methods/storage';
-import { InterUiDistritoCreate, InterUiDistritoUpdate } from '../views/uidistritomodal/InterUiDistritoModal';
+import { InterUiDistritoModalCrud } from '../views/uidistritomodal/InterUiDistritoModal';
 
 export const getDistritosAll = async () => {
     const token = getToken()
@@ -58,7 +58,7 @@ export const getDistritos = async (limit: number = 10, offset: number = 0) => {
 
 }
 
-export const createDistrito = async (data: InterUiDistritoCreate) => {
+export const createDistrito = async (data: InterUiDistritoModalCrud) => {
     const token = getToken()
     const config: AxiosRequestConfig = {
         method: 'post',
@@ -87,7 +87,7 @@ export const createDistrito = async (data: InterUiDistritoCreate) => {
 }
 
 
-export const updateDistrito = async (data: InterUiDistritoUpdate) => {
+export const updateDistrito = async (data: InterUiDistritoModalCrud) => {
     const token = getToken()
     const config: AxiosRequestConfig = {
         method: 'put',

@@ -6,6 +6,7 @@ import UiMenuBar from '../../uiutils/uimenubar/UiMenuBar';
 import { getMenu } from '../../services/menu';
 import { getCurrentProfile } from '../../services/perfil';
 import UiTabPanel from '../uitabpanel/UiTabPanel';
+import UiDistritoMantenimiento from '../uidistritomantenimiento/UiDistritoMantenimiento';
 
 export class UiSesionHome extends Component {
 
@@ -13,6 +14,20 @@ export class UiSesionHome extends Component {
     menuData: null,
     profileData: null,
     loading: true,
+    tabsData: [
+      {
+        id: 'distrito',
+        label: 'Distrito',
+        icon: 'Build',
+        content: <UiDistritoMantenimiento />
+      },
+      {
+        id: 'dashboard',
+        label: 'Dashboard',
+        icon: 'Build',
+        content: <div>Dashboard Content</div>
+      }
+    ]
   };
 
   async componentDidMount() {
@@ -27,7 +42,7 @@ export class UiSesionHome extends Component {
   }
 
   render() {
-    const { menuData, profileData, loading } = this.state;
+    const { menuData, profileData, tabsData, loading } = this.state;
 
     return (
       <BorderLayout
@@ -42,7 +57,7 @@ export class UiSesionHome extends Component {
           {!loading && (
             menuData && <UiMenuBar data={menuData} />
           )}
-          <UiTabPanel />
+          <UiTabPanel data={tabsData} />
           </>
         }
       />

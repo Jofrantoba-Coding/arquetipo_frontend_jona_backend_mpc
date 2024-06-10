@@ -1,18 +1,14 @@
-export interface InterUiDistritoCreate {
-    descripcion: string;
-    codigoDistrito: string;
-    orden: number;
+export interface InterUiDistritoModalCrud {
+    id?: number | undefined;
+    descripcion: string | undefined;
+    codigoDistrito: string | undefined;
+    orden: number | undefined;
     provincia: {
-        id: number;
+        id: number | undefined;
     };
 }
 
-export interface InterUiDistritoUpdate {
+export interface InterUiProvincia {
     id: number;
-    descripcion: string;
-    codigoDistrito: string;
-    orden: number;
-    provincia: {
-        id: number;
-    };
+    descripcion: string
 }

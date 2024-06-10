@@ -1,9 +1,10 @@
 import { InterUiDistritoMantenimiento } from "../uidistritomantenimiento/InterUiDistritoMantenimiento";
-import { InterUiDistritoUpdate } from "./InterUiDistritoModal";
+import { InterUiDistritoModalCrud } from "./InterUiDistritoModal";
 
 export interface UiDistritoModalProps {
     onClose: () => void;
-    onSubmit: (data: InterUiDistritoUpdate) => void;
-    data?: Partial<InterUiDistritoMantenimiento> | null;
+    onSubmit: (data: InterUiDistritoModalCrud) => void;
+    data?: InterUiDistritoMantenimiento | null;
+    mode: 'create' | 'edit' | 'view'
 }
 
