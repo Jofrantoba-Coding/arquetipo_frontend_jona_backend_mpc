@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { UiTabPanelState } from './UiTabPanelState';
 import { UiTabPanelProps } from './UiTabPanelProps';
-import UiIcon from '../../uiutils/uiicon/UiIcon';
+import UiIcon from '../uiicon/UiIcon';
 
 class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
   constructor(props: UiTabPanelProps) {

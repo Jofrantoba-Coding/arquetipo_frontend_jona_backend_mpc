@@ -1,4 +1,4 @@
-export interface InterUiDistritoModalCrud {
+export interface InterUiDistritoMantenimientoCrud {
     id?: number | undefined;
     descripcion: string | undefined;
     codigoDistrito: string | undefined;
@@ -6,6 +6,10 @@ export interface InterUiDistritoModalCrud {
     provincia: {
         id: number | undefined;
     };
+}
+
+export interface InterUiDistritoMantenimientoDelete {
+    id: number | undefined;
 }
 
 export interface InterUiProvincia {

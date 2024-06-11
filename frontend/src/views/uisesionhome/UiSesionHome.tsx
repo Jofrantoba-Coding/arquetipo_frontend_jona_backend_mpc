@@ -5,8 +5,8 @@ import Footer from '../../uiutils/uifooterbar/UiFooterBar';
 import UiMenuBar from '../../uiutils/uimenubar/UiMenuBar';
 import { getMenu } from '../../services/menu';
 import { getCurrentProfile } from '../../services/perfil';
-import UiTabPanel from '../uitabpanel/UiTabPanel';
-import UiDistritoMantenimiento from '../uidistritomantenimiento/UiDistritoMantenimiento';
+import UiTabPanel from '../../uiutils/uitabpanel/UiTabPanel';
+import UiDistritoMantenimiento from '../uidistritogrid/UiDistritoGrid';
 
 export class UiSesionHome extends Component {
 

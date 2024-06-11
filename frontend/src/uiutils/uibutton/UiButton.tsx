@@ -14,20 +14,25 @@ const colorClasses = {
   purple: "bg-purple-700 hover:bg-purple-800 focus:ring-purple-300",
 };
 
-const UiButton: React.FC<ButtonInterface> = ({ type, text, icon, callback, href, color = 'red' }) => {
+const UiButton: React.FC<ButtonInterface> = ({ type, text, icon, className, disabled = false, callback, href, color = 'red' }) => {
   // Aplicamos las clases de color dependiendo de la propiedad `color`
   const colorClass = colorClasses[color];
 
   if (type === 'link') {
     return (
-      <a href={href} className={`button text-white font-medium rounded-md text-sm px-5 py-2.5 text-center ${colorClass}`}>
+      <a href={href} className={`button text-white font-medium rounded-md text-sm px-5 py-2.5 text-center ${colorClass} ${className}`}>
         {text}
       </a>
     );
   }
 
   return (
-    <button type={type} className={`button flex gap-2 items-center text-white font-medium rounded-md text-sm px-5 py-2.5 text-center ${colorClass}`} onClick={callback}>
+    <button 
+      type={type} 
+      className={`button flex gap-2 items-center text-white font-medium rounded-md text-sm px-5 py-2.5 text-center ${colorClass} ${className}`} 
+      disabled={disabled}
+      onClick={callback}
+    >
       { icon && (
         <UiIcon name={icon} className=""/>
       )}

@@ -1,8 +1,7 @@
-import { InterUiDistritoMantenimiento } from "./InterUiDistritoMantenimiento";
+import { InterUiDistritoMantenimientoCrud, InterUiProvincia } from "./InterUiDistritoMantenimiento";
 
 export interface UiDistritoMantenimientoState {
-    distritos: InterUiDistritoMantenimiento[];
-    modalOpen: boolean;
-    modalMode: 'edit' | 'create' | 'view';
-    selectedDistrito: InterUiDistritoMantenimiento | null;
+    provincias: InterUiProvincia[];
+    defaultData: InterUiDistritoMantenimientoCrud;
+    showDeleteConfirmation: boolean
 }

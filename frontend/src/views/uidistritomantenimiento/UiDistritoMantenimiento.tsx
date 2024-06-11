@@ -1,152 +1,269 @@
-import { Component } from "react";
-import { getDistritos, updateDistrito } from "../../services/distrito";
-import { UiDistritoMantenimientoState } from "./UiDistritoMantenimientoState";
-import { InterUiDistritoModalCrud } from "../uidistritomodal/InterUiDistritoModal";
-import { InterUiDistritoMantenimiento } from "./InterUiDistritoMantenimiento";
-import { UiDistritoMantenimientoProps } from "./UiDistritoMantenimientoProps";
-import UiDistritoModal from "../uidistritomodal/UiDistritoModal";
-import UiIcon from "../../uiutils/uiicon/UiIcon";
-import UiButton from "../../uiutils/uibutton/UiButton";
+import { Component } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { UiDistritoMantenimientoState } from './UiDistritoMantenimientoState';
+import { validationUpdateSchema, validationCreateSchema } from './UiDistritoMantenimientoValidation';
+import { UiDistritoMantenimientoProps } from './UiDistritoMantenimientoProps';
+import { getProvinciaByIdDepartamento } from '../../services/provincia';
+import { InterUiDistritoMantenimientoCrud, InterUiDistritoMantenimientoDelete } from './InterUiDistritoMantenimiento';
+import UiButton from '../../uiutils/uibutton/UiButton';
+import { deleteDistrito, updateDistrito } from '../../services/distrito';
 
 class UiDistritoMantenimiento extends Component<UiDistritoMantenimientoProps, UiDistritoMantenimientoState> {
     constructor(props: UiDistritoMantenimientoProps) {
         super(props);
+
+        const { mode, data } = props;
+
+        const defaultData: InterUiDistritoMantenimientoCrud = {
+            descripcion: data?.descripcion,
+            codigoDistrito: data?.codigodistrito,
+            orden: data?.orden,
+            provincia: {
+                id: data?.idprovincia
+            }
+        };
+
+        if (mode !== 'create') {
+            defaultData.id = Number(props.data?.id);
+        }
+
         this.state = {
-            distritos: [],
-            modalOpen: false,
-            modalMode: 'create',
-            selectedDistrito: null
+            provincias: [],
+            defaultData,
+            showDeleteConfirmation: false,
         };
     }
 
-    async componentDidMount() {
-        this.fetchDistritos();
+    componentDidMount() {
+        this.fetchProvincias();
     }
 
-    fetchDistritos = async () => {
-        const data = await getDistritos(10, 0);
-        this.setState({ distritos: data });
+    async fetchProvincias() {
+        const dataProvincia = await getProvinciaByIdDepartamento(Number(this.props.data?.iddepartamento));
+        this.setState({ provincias: dataProvincia });
     }
 
-    editModal = (distrito: InterUiDistritoMantenimiento) => {
-        this.setState({
-            modalOpen: true,
-            modalMode: 'edit',
-            selectedDistrito: distrito
-        });
+    handleDelete = () => {
+        this.setState({ showDeleteConfirmation: true });
     }
 
-    viewModal = (distrito: InterUiDistritoMantenimiento) => {
-        this.setState({
-            modalOpen: true,
-            modalMode: 'view',
-            selectedDistrito: distrito
-        });
+    handleCancelDelete = () => {
+        this.setState({ showDeleteConfirmation: false });
     }
 
-    closeModal = () => {
-        this.setState({
-            modalOpen: false,
-            selectedDistrito: null
-        });
+    handleUpdate = async (data: InterUiDistritoMantenimientoCrud) => {
+        const dataUpdate = await updateDistrito(data);
+        console.log(dataUpdate)
+        this.props.onClose();
     }
 
-    handleEditDistrito = async (updatedDistrito: InterUiDistritoModalCrud) => {
-        await updateDistrito(updatedDistrito);
-        this.closeModal();
-        this.fetchDistritos();
+    handleConfirmDelete = async (data: InterUiDistritoMantenimientoDelete) => {
+        // Aquí puedes llamar a la función de eliminación
+        // this.props.onDelete(this.state.defaultData.id);
+        const dataDelete = await deleteDistrito(data)
+        console.log(dataDelete)
+        this.setState({ showDeleteConfirmation: false });
+        this.props.onClose();
     }
 
     render() {
-        const { distritos, modalOpen, modalMode, selectedDistrito } = this.state;
+        const { onClose, onSubmit, mode } = this.props;
+        const { provincias, defaultData, showDeleteConfirmation } = this.state;
+        const isEditable = mode === 'edit' || mode === 'create';
+
+        const getTitle = () => {
+            if (showDeleteConfirmation) {
+                return 'Eliminar Distrito';
+            }
+            if (mode === 'edit') {
+                return 'Editar Distrito';
+            }
+            if (mode === 'create') {
+                return 'Crear Distrito';
+            }
+            return 'Ver Distrito';
+        };
+
         return (
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white">
-                    <div className="flex gap-2">
-                        <UiButton type="button" text={'Agregar'} color={'dark'} icon="Add" />
-                        <UiButton type="button" text={'Exportar'} color={'green'} icon="Export" />
-                    </div>
-                    <label htmlFor="table-search" className="sr-only">Buscar</label>
-                    <div className="relative">
-                        <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                                />
+            <div
+                id="crud-modal"
+                className="fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full max-h-full bg-gray-900 bg-opacity-50 flex"
+                onClick={onClose}
+            >
+                <div
+                    className="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div className="flex items-center justify-between p-4 border-b rounded-t">
+                        <h3 className="text-lg font-semibold text-gray-900">
+                            {getTitle()}
+                        </h3>
+                        <button
+                            type="button"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                            onClick={onClose}
+                        >
+                            <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6" />
                             </svg>
-                        </div>
-                        <input
-                            type="text"
-                            id="table-search-users"
-                            className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Buscar"
-                        />
+                            <span className="sr-only">Cerrar modal</span>
+                        </button>
                     </div>
+
+                    {showDeleteConfirmation ? (
+                        <div className="space-y-2 p-2">
+                            <div className="p-4 space-y-2 text-center dark:text-white">
+                                <p className="text-gray-500">¿Está seguro de que desea eliminar este distrito?</p>
+                            </div>
+                            
+                            <div className="space-y-2">
+                                
+                                <div className="px-6 py-2">
+
+                                    <div className="grid gap-4 grid-cols-2">
+                                        <UiButton 
+                                            type={'button'}
+                                            color={'dark'}
+                                            callback={this.handleCancelDelete}
+                                            className={'justify-center'}
+                                            text={'Cancelar'}
+                                        />
+
+                                        <UiButton 
+                                            type={'button'}
+                                            color={'red'}
+                                            className={'justify-center'}
+                                            callback={() => this.handleConfirmDelete({ id: defaultData?.id })}
+                                            text={'Eliminar'}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <Formik
+                            initialValues={defaultData}
+                            validationSchema={mode === 'edit' ? validationUpdateSchema : validationCreateSchema}
+                            onSubmit={(values, { setSubmitting }) => {
+                                const formattedValues = {
+                                    ...values,
+                                    orden: Number(values.orden),
+                                    provincia: {
+                                        id: Number(values.provincia.id)
+                                    }
+                                };
+                                if (mode === 'edit') {
+                                    formattedValues.id = Number(values.id);
+                                }
+                                onSubmit(formattedValues);
+                                setSubmitting(false);
+                                onClose();
+                            }}
+                        >
+                            {({ isSubmitting }) => (
+                                <Form className="p-4 md:p-5">
+                                    <div className="grid gap-4 grid-cols-2">
+                                        {mode !== 'create' && (
+                                            <div className="col-span-2 sm:col-span-1">
+                                                <label htmlFor="id" className="block mb-2 text-sm font-medium text-gray-900">ID</label>
+                                                <Field
+                                                    type="text"
+                                                    name="id"
+                                                    id="id"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                    readOnly={isEditable}
+                                                />
+                                                {isEditable && <ErrorMessage name="id" component="div" className="text-red-600 text-sm mt-1" />}
+                                            </div>
+                                        )}
+
+                                        <div className="col-span-2 sm:col-span-1">
+                                            <label htmlFor="codigoDistrito" className="block mb-2 text-sm font-medium text-gray-900">Código Distrito</label>
+                                            <Field
+                                                type="text"
+                                                name="codigoDistrito"
+                                                id="codigoDistrito"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                placeholder="Escribe el código del distrito"
+                                                readOnly={!isEditable}
+                                            />
+                                            {isEditable && <ErrorMessage name="codigoDistrito" component="div" className="text-red-600 text-sm mt-1" />}
+                                        </div>
+
+                                        <div className="col-span-2">
+                                            <label htmlFor="descripcion" className="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
+                                            <Field
+                                                type="text"
+                                                name="descripcion"
+                                                id="descripcion"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                placeholder="Escribe la descripción"
+                                                readOnly={!isEditable}
+                                            />
+                                            {isEditable && <ErrorMessage name="descripcion" component="div" className="text-red-600 text-sm mt-1" />}
+                                        </div>
+
+                                        <div className="col-span-2">
+                                            <label htmlFor="provincia-id" className="block mb-2 text-sm font-medium text-gray-900">Provincia</label>
+                                            <Field
+                                                as="select"
+                                                name="provincia.id"
+                                                id="provincia-id"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                readOnly={!isEditable}
+                                            >
+                                                {provincias.map((provincia) => (
+                                                    <option key={provincia.id} value={provincia.id}>
+                                                        {provincia.descripcion}
+                                                    </option>
+                                                ))}
+                                            </Field>
+                                            {isEditable && <ErrorMessage name="provincia.id" component="div" className="text-red-600 text-sm mt-1" />}
+                                        </div>
+
+                                        <div className="col-span-2 sm:col-span-1">
+                                            <label htmlFor="orden" className="block mb-2 text-sm font-medium text-gray-900">Orden</label>
+                                            <Field
+                                                type="number"
+                                                name="orden"
+                                                id="orden"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                placeholder="Escribe el orden"
+                                                readOnly={!isEditable}
+                                            />
+                                            {isEditable && <ErrorMessage name="orden" component="div" className="text-red-600 text-sm mt-1" />}
+                                        </div>
+
+                                        <div className="col-span-2 my-2 border-b"></div>
+
+                                        <div className="col-span-2  flex justify-between">
+                                            {(mode === 'edit' || mode === 'create') && (
+                                                <>
+                                                    <UiButton 
+                                                        type={'submit'}
+                                                        disabled={isSubmitting}
+                                                        color={'green'}
+                                                        icon={'Save'}
+                                                        text={mode === 'edit' ? 'Guardar' : 'Crear'}
+                                                    />
+                                                    {mode === 'edit' && (
+                                                        <UiButton 
+                                                            type={'button'}
+                                                            color={'red'}
+                                                            callback={this.handleDelete}
+                                                            icon={'Delete'}
+                                                            text={'Eliminar'}
+                                                        />
+                                                    )}
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
+                    )}
                 </div>
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead className="text-xs text-white uppercase bg-[#DD3333]">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">Descripción</th>
-                            <th scope="col" className="px-6 py-3">Código Distrito</th>
-                            <th scope="col" className="px-6 py-3">Código Provincia</th>
-                            <th scope="col" className="px-6 py-3">Código Departamento</th>
-                            <th scope="col" className="px-6 py-3">Provincia</th>
-                            <th scope="col" className="px-6 py-3">Departamento</th>
-                            <th scope="col" className="px-6 py-3">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {distritos.map((item, index) => (
-                            <tr
-                                key={item.id}
-                                className={`border-b hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                                    }`}
-                            >
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {item.descripcion}
-                                </th>
-                                <td className="px-6 py-4">{item.codigodistrito}</td>
-                                <td className="px-6 py-4">{item.codigoprovincia}</td>
-                                <td className="px-6 py-4">{item.codigodepartamento}</td>
-                                <td className="px-6 py-4">{item.descripcionprovincia}</td>
-                                <td className="px-6 py-4">{item.descripciondepartamento}</td>
-                                <td className="px-6 py-4">
-                                    <button 
-                                        type="button" 
-                                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2"
-                                        onClick={() => this.viewModal(item)}
-                                    >
-                                        <UiIcon name="View" />
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2"
-                                        onClick={() => this.editModal(item)}
-                                    >
-                                        <UiIcon name="Edit" />
-                                    </button>
-                                    <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2">
-                                        <UiIcon name="Delete" />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                
-                { modalOpen && (
-                    <UiDistritoModal
-                        onClose={this.closeModal}
-                        onSubmit={this.handleEditDistrito}
-                        mode={modalMode}
-                        data={selectedDistrito}
-                    />
-                )}
-                
             </div>
         );
     }

@@ -4,7 +4,7 @@ import { UiIniciarSesionState } from './UiIniciarSesionState';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { ERRORS, INVALID } from '../../constants/validation';
 import * as Yup from 'yup';
-import Button from '../../uiutils/uibutton/UiButton';
+import UiButton from '../../uiutils/uibutton/UiButton';
 
 const validationSchema = Yup.object({
   email: Yup.string().email(INVALID.EMAIL).required(ERRORS.REQUIRED),
@@ -71,7 +71,7 @@ export class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSe
               <ErrorMessage name="password" component="div" className="text-[#DD3333] text-sm" />
             </div>
             <div className="w-full pt-[20px]">
-              <Button
+              <UiButton 
                 type={'submit'}
                 text={'Iniciar Sesión'}
               />

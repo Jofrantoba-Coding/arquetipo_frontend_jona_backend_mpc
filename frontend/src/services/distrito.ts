@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { getToken } from '../methods/storage';
-import { InterUiDistritoModalCrud } from '../views/uidistritomodal/InterUiDistritoModal';
+import { InterUiDistritoMantenimientoCrud, InterUiDistritoMantenimientoDelete } from '../views/uidistritomantenimiento/InterUiDistritoMantenimiento';
 
 export const getDistritosAll = async () => {
     const token = getToken()
@@ -58,7 +58,7 @@ export const getDistritos = async (limit: number = 10, offset: number = 0) => {
 
 }
 
-export const createDistrito = async (data: InterUiDistritoModalCrud) => {
+export const createDistrito = async (data: InterUiDistritoMantenimientoCrud) => {
     const token = getToken()
     const config: AxiosRequestConfig = {
         method: 'post',
@@ -87,12 +87,40 @@ export const createDistrito = async (data: InterUiDistritoModalCrud) => {
 }
 
 
-export const updateDistrito = async (data: InterUiDistritoModalCrud) => {
+export const updateDistrito = async (data: InterUiDistritoMantenimientoCrud) => {
     const token = getToken()
     const config: AxiosRequestConfig = {
         method: 'put',
         maxBodyLength: Infinity,
         url: `${process.env.REACT_APP_API_URL}/distrito/update`,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        data
+    };
+
+    try {
+        const response = await axios.request(config);
+        if (response.status === 200) {
+            const responseData = response.data;
+            return responseData;
+        } else {
+            console.error(`Unexpected response status: ${response.status}`);
+            return false;
+        }
+    } catch (error) {
+        console.error(error);
+        throw new Error('Login failed');
+    }
+}
+
+export const deleteDistrito = async (data: InterUiDistritoMantenimientoDelete) => {
+    const token = getToken()
+    const config: AxiosRequestConfig = {
+        method: 'delete',
+        maxBodyLength: Infinity,
+        url: `${process.env.REACT_APP_API_URL}/distrito/delete`,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

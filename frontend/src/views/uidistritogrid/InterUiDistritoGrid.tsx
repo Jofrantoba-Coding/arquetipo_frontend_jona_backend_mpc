@@ -1,4 +1,4 @@
-export interface InterUiDistritoMantenimiento {
+export interface InterUiDistritoGrid {
     id: number;
     descripcion: string;
     codigodistrito: string;
