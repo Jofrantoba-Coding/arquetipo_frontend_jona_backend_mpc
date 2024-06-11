@@ -4,6 +4,7 @@ import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 import { scheduleTokenRefresh, requestRefreshAccessToken } from './services/auth';
 import { getTokenExpiration } from './methods/storage';
+import { Toaster } from 'react-hot-toast';
 import './resources/css/index.css';
 
 const root = ReactDOM.createRoot(
@@ -26,6 +27,7 @@ if (expirationTime) {
 root.render(
   <React.StrictMode>
     <App />
+    <Toaster />
   </React.StrictMode>
 );
 

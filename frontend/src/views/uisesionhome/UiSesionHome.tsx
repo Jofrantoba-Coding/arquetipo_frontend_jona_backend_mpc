@@ -14,27 +14,32 @@ export class UiSesionHome extends Component {
     menuData: null,
     profileData: null,
     loading: true,
-    tabsData: [
-      {
-        id: 'distrito',
-        label: 'Distrito',
-        icon: 'Build',
-        content: <UiDistritoMantenimiento />
-      },
-      {
-        id: 'dashboard',
-        label: 'Dashboard',
-        icon: 'Build',
-        content: <div>Dashboard Content</div>
-      }
-    ]
+    tabsData: []
   };
 
   async componentDidMount() {
     try {
-      const menuData = await getMenu();
-      const profileData = await getCurrentProfile();
-      this.setState({ menuData, profileData: profileData[0], loading: false });
+
+      const tabs = [
+        {
+          id: 'distrito',
+          label: 'Distrito',
+          icon: 'Build',
+          content: <UiDistritoMantenimiento />
+        },
+        {
+          id: 'dashboard',
+          label: 'Dashboard',
+          icon: 'Build',
+          content: <div>Dashboard Content</div>
+        }
+      ]
+
+      const [menuData, profileData]: any[] = await Promise.all([
+        getMenu(),
+        getCurrentProfile()
+      ]);
+      this.setState({ menuData, profileData: profileData[0], tabsData: tabs, loading: false });
     } catch (error) {
       this.setState({ loading: false });
       console.error('Error fetching menu data:', error);
@@ -45,22 +50,19 @@ export class UiSesionHome extends Component {
     const { menuData, profileData, tabsData, loading } = this.state;
 
     return (
-      <BorderLayout
-        north={
-          !loading && (
-            profileData && <UiTitleBar data={profileData} />
-          )
-        }
-        south={<Footer />}
-        center={
-          <>
-          {!loading && (
-            menuData && <UiMenuBar data={menuData} />
-          )}
-          <UiTabPanel data={tabsData} />
-          </>
-        }
-      />
+      !loading && (
+        <BorderLayout
+          north={
+            profileData && (<UiTitleBar data={profileData} />)
+          }
+          south={<Footer />}
+          center={
+            (<>
+              { menuData && (<UiMenuBar data={menuData} />) }
+              <UiTabPanel data={tabsData} />
+            </>)
+          }
+        />)
     );
   }
 }

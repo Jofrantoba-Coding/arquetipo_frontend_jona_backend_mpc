@@ -1,4 +1,4 @@
-import { FaBeer, FaEdit, FaEye, FaPowerOff, FaSave, FaBuilding, FaTimesCircle, FaTrash, FaPlus, FaFileExcel } from 'react-icons/fa';
+import { FaBeer, FaEdit, FaEye, FaPowerOff, FaSave, FaBuilding, FaTimesCircle, FaTrash, FaPlus, FaFileExcel, FaSearch, FaTimes } from 'react-icons/fa';
 import { IconInterface } from './InterUiIcon';
 import { IconType } from 'react-icons';
 
@@ -8,8 +8,10 @@ const UiIcon: React.FC<IconInterface> = ({ name, size, color, className }) => {
     Power: FaPowerOff,
     Edit: FaEdit,
     Add: FaPlus,
+    Search: FaSearch,
     Export: FaFileExcel,
     Build: FaBuilding,
+    Close: FaTimes,
     CloseCircle: FaTimesCircle,
     Save: FaSave,
     Delete: FaTrash,

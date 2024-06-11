@@ -2,7 +2,6 @@ import React from 'react';
 import { ButtonInterface } from './InterUiButton';
 import UiIcon from '../uiicon/UiIcon';
 
-// Definimos un objeto para mapear los colores a sus respectivas clases de Tailwind
 const colorClasses = {
   blue: "bg-blue-700 hover:bg-blue-800 focus:ring-blue-300",
   alternative: "text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-gray-100",
@@ -15,7 +14,6 @@ const colorClasses = {
 };
 
 const UiButton: React.FC<ButtonInterface> = ({ type, text, icon, className, disabled = false, callback, href, color = 'red' }) => {
-  // Aplicamos las clases de color dependiendo de la propiedad `color`
   const colorClass = colorClasses[color];
 
   if (type === 'link') {

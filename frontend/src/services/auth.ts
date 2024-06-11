@@ -127,7 +127,7 @@ export const logout = async (): Promise<boolean> => {
 };
 
 export const scheduleTokenRefresh = (expires_in: number) => {
-    const refreshTime = (expires_in - 60) * 1000; // Refrescar 1 minuto antes de que caduque
+    const refreshTime = (expires_in - 60) * 1000;
     console.log(refreshTime);
     setTimeout(requestRefreshAccessToken, refreshTime);
 };

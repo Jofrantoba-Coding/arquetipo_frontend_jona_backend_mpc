@@ -15,13 +15,13 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
             modalOpen: false,
             modalMode: 'create',
             selectedDistrito: null,
-            currentPage: 0,       // Página actual para la paginación
-            isLoading: false,     // Indicador de carga para evitar múltiples solicitudes
+            currentPage: 1, 
+            isLoading: false,
         };
     }
 
     async componentDidMount() {
-        this.fetchDistritos(0); // Inicialmente cargar la primera página
+        this.fetchDistritos(0);
         window.addEventListener('scroll', this.handleScroll);
     }
 
@@ -30,11 +30,11 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
     }
 
     fetchDistritos = async (page: number) => {
-        if (this.state.isLoading) return; // Si ya estamos cargando, no hacer nada
+        if (this.state.isLoading) return;
 
         this.setState({ isLoading: true });
 
-        const data = await getDistritos(10, page * 10); // Obtener 10 elementos por página
+        const data = await getDistritos(10, page * 10);
         this.setState(prevState => ({
             distritos: [...prevState.distritos, ...data],
             currentPage: page,
@@ -45,7 +45,6 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
     handleScroll = () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
         if (scrollTop + clientHeight >= scrollHeight - 100 && !this.state.isLoading) {
-            // Si estamos cerca del fondo, cargar la siguiente página
             this.fetchDistritos(this.state.currentPage + 1);
         }
     }
@@ -108,15 +107,7 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
                     <label htmlFor="table-search" className="sr-only">Buscar</label>
                     <div className="relative">
                         <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                                />
-                            </svg>
+                            <UiIcon name="Search" />
                         </div>
                         <input
                             type="text"
@@ -141,7 +132,7 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
                     <tbody>
                         {distritos.map((item, index) => (
                             <tr
-                                key={item.id}
+                                key={`distrito-${item.id}`}
                                 className={`border-b hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
                                     }`}
                             >

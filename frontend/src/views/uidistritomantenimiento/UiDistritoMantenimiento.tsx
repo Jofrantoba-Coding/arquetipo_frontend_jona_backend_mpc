@@ -5,8 +5,10 @@ import { validationUpdateSchema, validationCreateSchema } from './UiDistritoMant
 import { UiDistritoMantenimientoProps } from './UiDistritoMantenimientoProps';
 import { getProvinciaByIdDepartamento } from '../../services/provincia';
 import { InterUiDistritoMantenimientoCrud, InterUiDistritoMantenimientoDelete } from './InterUiDistritoMantenimiento';
-import UiButton from '../../uiutils/uibutton/UiButton';
 import { deleteDistrito, updateDistrito } from '../../services/distrito';
+import UiButton from '../../uiutils/uibutton/UiButton';
+import { showToast } from '../../services/toast';
+import UiIcon from '../../uiutils/uiicon/UiIcon';
 
 class UiDistritoMantenimiento extends Component<UiDistritoMantenimientoProps, UiDistritoMantenimientoState> {
     constructor(props: UiDistritoMantenimientoProps) {
@@ -53,13 +55,12 @@ class UiDistritoMantenimiento extends Component<UiDistritoMantenimientoProps, Ui
 
     handleUpdate = async (data: InterUiDistritoMantenimientoCrud) => {
         const dataUpdate = await updateDistrito(data);
+        showToast('success', 'Distrito actualizado')
         console.log(dataUpdate)
         this.props.onClose();
     }
 
     handleConfirmDelete = async (data: InterUiDistritoMantenimientoDelete) => {
-        // Aquí puedes llamar a la función de eliminación
-        // this.props.onDelete(this.state.defaultData.id);
         const dataDelete = await deleteDistrito(data)
         console.log(dataDelete)
         this.setState({ showDeleteConfirmation: false });
@@ -103,9 +104,7 @@ class UiDistritoMantenimiento extends Component<UiDistritoMantenimientoProps, Ui
                             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                             onClick={onClose}
                         >
-                            <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
+                            <UiIcon name="Close" />
                             <span className="sr-only">Cerrar modal</span>
                         </button>
                     </div>
