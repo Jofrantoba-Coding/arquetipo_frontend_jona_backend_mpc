@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { getToken } from '../methods/storage';
+import { getToken } from '../../methods/storage';
 
 export const getCurrentProfile = async () => {
     

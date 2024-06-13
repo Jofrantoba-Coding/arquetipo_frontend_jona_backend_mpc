@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { getToken } from '../methods/storage';
-import { InterUiDistritoMantenimientoCrud, InterUiDistritoMantenimientoDelete } from '../views/uidistritomantenimiento/InterUiDistritoMantenimiento';
+import { getToken } from '../../methods/storage';
+import { InterUiDistritoMantCrud, InterUiDistritoMantDelete } from '../../views/uidistritomant/InterUiDistritoMant';
 
 export const getDistritosAll = async () => {
     const token = getToken()
@@ -58,7 +58,7 @@ export const getDistritos = async (limit: number = 10, offset: number = 0) => {
 
 }
 
-export const createDistrito = async (data: InterUiDistritoMantenimientoCrud) => {
+export const createDistrito = async (data: InterUiDistritoMantCrud) => {
     const token = getToken()
     const config: AxiosRequestConfig = {
         method: 'post',
@@ -87,7 +87,7 @@ export const createDistrito = async (data: InterUiDistritoMantenimientoCrud) => 
 }
 
 
-export const updateDistrito = async (data: InterUiDistritoMantenimientoCrud) => {
+export const updateDistrito = async (data: InterUiDistritoMantCrud) => {
     const token = getToken()
     const config: AxiosRequestConfig = {
         method: 'put',
@@ -115,7 +115,7 @@ export const updateDistrito = async (data: InterUiDistritoMantenimientoCrud) => 
     }
 }
 
-export const deleteDistrito = async (data: InterUiDistritoMantenimientoDelete) => {
+export const deleteDistrito = async (data: InterUiDistritoMantDelete) => {
     const token = getToken()
     const config: AxiosRequestConfig = {
         method: 'delete',

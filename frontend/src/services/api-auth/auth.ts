@@ -1,13 +1,13 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
-import { clearSession, getRefreshToken, setRefreshToken, setSession, setToken, setTokenExpiration } from "../methods/storage"
+import { clearSession, getRefreshToken, setRefreshToken, setSession, setToken, setTokenExpiration } from "../../methods/storage"
 
 interface UserLogin {
     email: string;
     password: string;
 }
 
-export const login = async (user: UserLogin) => {
+export const getLogin = async (user: UserLogin) => {
     const data = qs.stringify({
         'client_id': process.env.REACT_APP_AUTH_CLIENT_ID,
         'client_secret': process.env.REACT_APP_AUTH_CLIENT_SECRET,

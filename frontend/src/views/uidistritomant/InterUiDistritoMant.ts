@@ -1,4 +1,8 @@
-export interface InterUiDistritoMantenimientoCrud {
+export interface InterUiDistritoMant {
+    loadingData?: () => void
+}
+
+export interface InterUiDistritoMantCrud {
     id?: number | undefined;
     descripcion: string | undefined;
     codigoDistrito: string | undefined;
@@ -8,7 +12,7 @@ export interface InterUiDistritoMantenimientoCrud {
     };
 }
 
-export interface InterUiDistritoMantenimientoDelete {
+export interface InterUiDistritoMantDelete {
     id: number | undefined;
 }
 

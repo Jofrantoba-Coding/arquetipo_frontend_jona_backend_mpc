@@ -1,22 +1,21 @@
 import { Component } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { UiDistritoMantenimientoState } from './UiDistritoMantenimientoState';
-import { validationUpdateSchema, validationCreateSchema } from './UiDistritoMantenimientoValidation';
-import { UiDistritoMantenimientoProps } from './UiDistritoMantenimientoProps';
-import { getProvinciaByIdDepartamento } from '../../services/provincia';
-import { InterUiDistritoMantenimientoCrud, InterUiDistritoMantenimientoDelete } from './InterUiDistritoMantenimiento';
-import { deleteDistrito, updateDistrito } from '../../services/distrito';
+import { UiDistritoMantState } from './UiDistritoMantState';
+import { validationUpdateSchema, validationCreateSchema } from './UiDistritoMantValidation';
+import { UiDistritoMantProps } from './UiDistritoMantProps';
+import { InterUiDistritoMantCrud, InterUiDistritoMantDelete } from './InterUiDistritoMant';
+import { deleteDistrito, updateDistrito } from '../../services/api-mantenimientos/distrito';
 import UiButton from '../../uiutils/uibutton/UiButton';
-import { showToast } from '../../services/toast';
+import { showToast } from '../../uiutils/uitoast/UiToast';
 import UiIcon from '../../uiutils/uiicon/UiIcon';
 
-class UiDistritoMantenimiento extends Component<UiDistritoMantenimientoProps, UiDistritoMantenimientoState> {
-    constructor(props: UiDistritoMantenimientoProps) {
+class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState> {
+    constructor(props: UiDistritoMantProps) {
         super(props);
 
         const { mode, data } = props;
 
-        const defaultData: InterUiDistritoMantenimientoCrud = {
+        const defaultData: InterUiDistritoMantCrud = {
             descripcion: data?.descripcion,
             codigoDistrito: data?.codigodistrito,
             orden: data?.orden,
@@ -36,15 +35,6 @@ class UiDistritoMantenimiento extends Component<UiDistritoMantenimientoProps, Ui
         };
     }
 
-    componentDidMount() {
-        this.fetchProvincias();
-    }
-
-    async fetchProvincias() {
-        const dataProvincia = await getProvinciaByIdDepartamento(Number(this.props.data?.iddepartamento));
-        this.setState({ provincias: dataProvincia });
-    }
-
     handleDelete = () => {
         this.setState({ showDeleteConfirmation: true });
     }
@@ -53,14 +43,14 @@ class UiDistritoMantenimiento extends Component<UiDistritoMantenimientoProps, Ui
         this.setState({ showDeleteConfirmation: false });
     }
 
-    handleUpdate = async (data: InterUiDistritoMantenimientoCrud) => {
+    handleUpdate = async (data: InterUiDistritoMantCrud) => {
         const dataUpdate = await updateDistrito(data);
-        showToast('success', 'Distrito actualizado')
+        showToast({type: 'success', message: 'Distrito actualizado'})
         console.log(dataUpdate)
         this.props.onClose();
     }
 
-    handleConfirmDelete = async (data: InterUiDistritoMantenimientoDelete) => {
+    handleConfirmDelete = async (data: InterUiDistritoMantDelete) => {
         const dataDelete = await deleteDistrito(data)
         console.log(dataDelete)
         this.setState({ showDeleteConfirmation: false });
@@ -268,4 +258,4 @@ class UiDistritoMantenimiento extends Component<UiDistritoMantenimientoProps, Ui
     }
 }
 
-export default UiDistritoMantenimiento;
+export default UiDistritoMant;

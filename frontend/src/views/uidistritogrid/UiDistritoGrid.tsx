@@ -1,11 +1,10 @@
 import { Component } from "react";
-import { getDistritos } from "../../services/distrito";
 import { UiDistritoGridState } from "./UiDistritoGridState";
 import { InterUiDistritoGrid } from "./InterUiDistritoGrid";
 import { UiDistritoGridProps } from "./UiDistritoGridProps";
-import UiDistritoMantenimiento from "../uidistritomantenimiento/UiDistritoMantenimiento";
 import UiIcon from "../../uiutils/uiicon/UiIcon";
 import UiButton from "../../uiutils/uibutton/UiButton";
+import { UiDistritoMantImpl } from "../uidistritomant/UiDistritoMantImpl";
 
 class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState> {
     constructor(props: UiDistritoGridProps) {
@@ -20,8 +19,7 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
         };
     }
 
-    async componentDidMount() {
-        this.fetchDistritos(0);
+    componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
     }
 
@@ -29,23 +27,9 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
         window.removeEventListener('scroll', this.handleScroll);
     }
 
-    fetchDistritos = async (page: number) => {
-        if (this.state.isLoading) return;
-
-        this.setState({ isLoading: true });
-
-        const data = await getDistritos(10, page * 10);
-        this.setState(prevState => ({
-            distritos: [...prevState.distritos, ...data],
-            currentPage: page,
-            isLoading: false
-        }));
-    }
-
     handleScroll = () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
         if (scrollTop + clientHeight >= scrollHeight - 100 && !this.state.isLoading) {
-            this.fetchDistritos(this.state.currentPage + 1);
         }
     }
 
@@ -79,9 +63,8 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
         });
     }
 
-    callbackDistrito = async () => {
+    callbackModal = async () => {
         this.closeModal();
-        this.fetchDistritos(0);
     }
 
     render() {
@@ -166,9 +149,9 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
                 </table>
                 
                 { modalOpen && (
-                    <UiDistritoMantenimiento
+                    <UiDistritoMantImpl
                         onClose={this.closeModal}
-                        onSubmit={this.callbackDistrito}
+                        onSubmit={this.callbackModal}
                         mode={modalMode}
                         data={selectedDistrito}
                     />

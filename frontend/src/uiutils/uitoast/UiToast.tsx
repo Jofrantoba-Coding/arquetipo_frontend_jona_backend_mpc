@@ -1,8 +1,8 @@
-import { toast, ToastOptions } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
+import { InterUiToast } from './InterUiToast';
 
-export type ToastType = 'success' | 'error' | 'loading' | 'default';
 
-export const showToast = (type: ToastType, message: string, options?: ToastOptions) => {
+export const showToast = ({ type, message, options }: InterUiToast) => {
   switch (type) {
     case 'success':
       toast.success(message, options);

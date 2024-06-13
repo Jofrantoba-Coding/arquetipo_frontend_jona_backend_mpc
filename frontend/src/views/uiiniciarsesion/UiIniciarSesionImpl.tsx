@@ -1,6 +1,6 @@
 import { UiIniciarSesion } from './UiIniciarSesion';
 import { UiIniciarSesionProps } from './UiIniciarSesionProps';
-import { login } from '../../services/auth';
+import { getLogin } from '../../services/api-auth/auth';
 
 export class UiIniciarSesionImpl extends UiIniciarSesion {
 
@@ -16,7 +16,7 @@ export class UiIniciarSesionImpl extends UiIniciarSesion {
     // Lógica para iniciar sesión, por ejemplo, llamada a una API o autenticación
     try {
       // Lógica de autenticación (supongamos que aquí hay una llamada a una API)
-      const response: any = await login({email, password})
+      const response: any = await getLogin({email, password})
       
       if (response) {
         // Autenticación exitosa, redirigir a la página de inicio

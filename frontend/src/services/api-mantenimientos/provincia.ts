@@ -1,23 +1,19 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { getToken } from '../methods/storage';
+import axios, { AxiosRequestConfig } from "axios";
+import { getToken } from "../../methods/storage";
 
-export const getMenu = async () => {
-    
+export const getProvinciaByIdDepartamento = async (idDepartamento: number) => {
     const token = getToken()
-    const data = JSON.stringify({
-        idClienteSistema: 7,
-        idSistema: 1
-    });
-
     const config: AxiosRequestConfig = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `${process.env.REACT_APP_API_URL}/usuario/show/menu`,
+        url: `${process.env.REACT_APP_API_URL}/provincia/find/listarbydepartamento`,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        data: data
+        data: {
+            idDepartamento
+        }
     };
 
     try {
@@ -35,4 +31,3 @@ export const getMenu = async () => {
     }
 
 }
-

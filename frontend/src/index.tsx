@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
-import { scheduleTokenRefresh, requestRefreshAccessToken } from './services/auth';
+import { scheduleTokenRefresh, requestRefreshAccessToken } from './services/api-auth/auth';
 import { getTokenExpiration } from './methods/storage';
 import { Toaster } from 'react-hot-toast';
 import './resources/css/index.css';

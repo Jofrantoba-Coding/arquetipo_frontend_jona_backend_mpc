@@ -3,10 +3,10 @@ import BorderLayout from '../../uilayouts/BorderLayout';
 import UiTitleBar from '../../uiutils/uititlebar/UiTitleBar';
 import Footer from '../../uiutils/uifooterbar/UiFooterBar';
 import UiMenuBar from '../../uiutils/uimenubar/UiMenuBar';
-import { getMenu } from '../../services/menu';
-import { getCurrentProfile } from '../../services/perfil';
+import { getMenu } from '../../services/api-mantenimientos/menu';
+import { getCurrentProfile } from '../../services/api-mantenimientos/perfil';
 import UiTabPanel from '../../uiutils/uitabpanel/UiTabPanel';
-import UiDistritoMantenimiento from '../uidistritogrid/UiDistritoGrid';
+import { UiDistritoGridImpl } from '../uidistritogrid/UiDistritoGridImpl';
 
 export class UiSesionHome extends Component {
 
@@ -25,7 +25,7 @@ export class UiSesionHome extends Component {
           id: 'distrito',
           label: 'Distrito',
           icon: 'Build',
-          content: <UiDistritoMantenimiento />
+          content: <UiDistritoGridImpl />
         },
         {
           id: 'dashboard',
