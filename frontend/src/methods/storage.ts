@@ -1,5 +1,10 @@
 import Cookies from 'js-cookie';
 
+const getExpirationTime = (expiresIn: number) => {
+  const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+  return expirationDate;
+}
+
 const getUser = () => {
   const user = Cookies.get('auth_user');
   if (user) return JSON.parse(user);
@@ -15,8 +20,9 @@ const getToken = () => {
   return token ?? null;
 }
 
-const setToken = (token: string) => {
-  Cookies.set('access_token', token);
+const setToken = (token: string, expiresIn: number) => {
+  const expirationDate = getExpirationTime(expiresIn);
+  Cookies.set('access_token', token, { expires: expirationDate });
 }
 
 const getRefreshToken = () => {
@@ -24,8 +30,9 @@ const getRefreshToken = () => {
   return token ?? null;
 }
 
-const setRefreshToken = (token: string) => {
-  Cookies.set('refresh_token', token);
+const setRefreshToken = (token: string, expiresIn: number) => {
+  const expirationDate = getExpirationTime(expiresIn);
+  Cookies.set('refresh_token', token, { expires: expirationDate });
 }
 
 const getSession = () => {
@@ -44,6 +51,7 @@ const getSession = () => {
 
 const setSession = (session: any) => {
   const { token_type, session_state, clientName, realmName, expires_in, refresh_expires_in } = session;
+  const expirationDate = getExpirationTime(expires_in);
   const sessionString = JSON.stringify({
     token_type, 
     session_state, 
@@ -52,12 +60,12 @@ const setSession = (session: any) => {
     expires_in, 
     refresh_expires_in
   });
-  Cookies.set('session', sessionString);
+  Cookies.set('session', sessionString, { expires: expirationDate });
 }
 
 const setTokenExpiration = (expires_in: number) => {
-  const expirationTime = new Date().getTime() + expires_in * 1000;
-  Cookies.set('token_expiration_time', expirationTime.toString());
+  const expirationDate = getExpirationTime(expires_in);
+  Cookies.set('token_expiration_time', expirationDate.toString(), { expires: expirationDate });
 }
 
 const getTokenExpiration = () => {

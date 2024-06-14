@@ -1,5 +1,6 @@
 export interface Tab {
     id: string;
+    menuId: number;
     label: string;
     icon: string;
     content: React.ReactNode;

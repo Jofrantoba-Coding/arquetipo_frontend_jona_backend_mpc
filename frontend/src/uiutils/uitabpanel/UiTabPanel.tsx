@@ -13,6 +13,7 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
       activeTab: 'distrito',
       tabs: data
     };
+
     this.handleTabClick = this.handleTabClick.bind(this);
     this.handleTabClose = this.handleTabClose.bind(this);
   }
@@ -20,7 +21,6 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
   handleTabClick(tabId: string) {
     this.setState({ activeTab: tabId });
     console.log(tabId);
-
   }
 
   handleTabClose(tabId: string) {
@@ -44,7 +44,21 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
     });
   }
 
+  componentDidUpdate(prevProps: UiTabPanelProps) {
+    // Solo actualizar el estado si `data` ha cambiado
+    if (prevProps.data !== this.props.data) {
+      // Actualiza `tabs` con los nuevos datos
+      this.setState({ 
+        tabs: this.props.data,
+        // Mantener el `activeTab` actual si sigue existiendo, de lo contrario establecer el primer tab como activo
+        activeTab: this.props.data.length > 0 ? this.props.data[0].id : ''
+      });
+    }
+    console.log('tabs udpdate', this.props)
+  }
+
   render() {
+    console.log('entra tabs');
     const { activeTab, tabs } = this.state;
 
     return (

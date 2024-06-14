@@ -9,8 +9,8 @@ export class UiDistritoMantImpl extends UiDistritoMant {
       }
 
     async loadingData() {
-        const dataProvincia = await getProvinciaByIdDepartamento(Number(this.props.data?.iddepartamento));
-        this.setState({ provincias: dataProvincia });
+        const data = await getProvinciaByIdDepartamento(Number(this.props.data?.iddepartamento));
+        this.setState({ provincias: data });
     }
     
     componentDidMount() {

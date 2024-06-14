@@ -33,8 +33,8 @@ export const getLogin = async (user: UserLogin) => {
             const responseData = response.data;
             const { access_token, refresh_token, expires_in, ...sessionData } = responseData;
             setSession({expires_in, ...sessionData});
-            setToken(access_token);  
-            setRefreshToken(refresh_token);
+            setToken(access_token, expires_in);  
+            setRefreshToken(refresh_token, expires_in);
             setTokenExpiration(expires_in);
             scheduleTokenRefresh(expires_in);
             return responseData;
@@ -77,8 +77,8 @@ export const requestRefreshAccessToken = async () => {
             const responseData = response.data;
             const { access_token, refresh_token, expires_in, ...sessionData } = responseData;
             setSession({expires_in, ...sessionData});
-            setToken(access_token);
-            setRefreshToken(refresh_token);
+            setToken(access_token, expires_in);
+            setRefreshToken(refresh_token, expires_in);
             setTokenExpiration(expires_in);
             scheduleTokenRefresh(expires_in);
             return responseData;

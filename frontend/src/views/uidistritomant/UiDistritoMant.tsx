@@ -5,8 +5,8 @@ import { validationUpdateSchema, validationCreateSchema } from './UiDistritoMant
 import { UiDistritoMantProps } from './UiDistritoMantProps';
 import { InterUiDistritoMantCrud, InterUiDistritoMantDelete } from './InterUiDistritoMant';
 import { deleteDistrito, updateDistrito } from '../../services/api-mantenimientos/distrito';
-import UiButton from '../../uiutils/uibutton/UiButton';
 import { showToast } from '../../uiutils/uitoast/UiToast';
+import UiButton from '../../uiutils/uibutton/UiButton';
 import UiIcon from '../../uiutils/uiicon/UiIcon';
 
 class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState> {
@@ -45,7 +45,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
 
     handleUpdate = async (data: InterUiDistritoMantCrud) => {
         const dataUpdate = await updateDistrito(data);
-        showToast({type: 'success', message: 'Distrito actualizado'})
+        showToast({ type: 'success', message: 'Distrito actualizado' })
         console.log(dataUpdate)
         this.props.onClose();
     }
@@ -104,13 +104,13 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                             <div className="p-4 space-y-2 text-center dark:text-white">
                                 <p className="text-gray-500">¿Está seguro de que desea eliminar este distrito?</p>
                             </div>
-                            
+
                             <div className="space-y-2">
-                                
+
                                 <div className="px-6 py-2">
 
                                     <div className="grid gap-4 grid-cols-2">
-                                        <UiButton 
+                                        <UiButton
                                             type={'button'}
                                             color={'dark'}
                                             callback={this.handleCancelDelete}
@@ -118,7 +118,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                             text={'Cancelar'}
                                         />
 
-                                        <UiButton 
+                                        <UiButton
                                             type={'button'}
                                             color={'red'}
                                             className={'justify-center'}
@@ -228,7 +228,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                         <div className="col-span-2  flex justify-between">
                                             {(mode === 'edit' || mode === 'create') && (
                                                 <>
-                                                    <UiButton 
+                                                    <UiButton
                                                         type={'submit'}
                                                         disabled={isSubmitting}
                                                         color={'green'}
@@ -236,7 +236,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                                         text={mode === 'edit' ? 'Guardar' : 'Crear'}
                                                     />
                                                     {mode === 'edit' && (
-                                                        <UiButton 
+                                                        <UiButton
                                                             type={'button'}
                                                             color={'red'}
                                                             callback={this.handleDelete}

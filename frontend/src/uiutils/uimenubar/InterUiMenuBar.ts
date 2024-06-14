@@ -12,4 +12,5 @@ export interface MenuItem {
 
 export interface MenuProps {
     data: MenuItem[];
+    callback: (id: number) => void;
 }

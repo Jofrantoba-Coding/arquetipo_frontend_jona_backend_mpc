@@ -6,40 +6,55 @@ import UiMenuBar from '../../uiutils/uimenubar/UiMenuBar';
 import { getMenu } from '../../services/api-mantenimientos/menu';
 import { getCurrentProfile } from '../../services/api-mantenimientos/perfil';
 import UiTabPanel from '../../uiutils/uitabpanel/UiTabPanel';
-import { UiDistritoGridImpl } from '../uidistritogrid/UiDistritoGridImpl';
+import { MENU_TABS } from '../../constants/tabs';
+import { UiSesionHomeProps } from './UiSesionHomeProps';
+import { UiSesionHomeState } from './UiSesionHomeState';
+import { Tab } from '../../uiutils/uitabpanel/UiTabPanelState';
 
-export class UiSesionHome extends Component {
+export class UiSesionHome extends Component<UiSesionHomeProps, UiSesionHomeState> {
 
-  state = {
-    menuData: null,
-    profileData: null,
-    loading: true,
-    tabsData: []
-  };
+  constructor(props: UiSesionHomeProps) {
+    super(props);
+    this.state = {
+      menuData: [],
+      profileData: null,
+      loading: true,
+      tabsData: []
+    };
+  }
+
+  callbackMenu = (id: number) => {
+    const newTab: Tab | undefined = MENU_TABS.find((item) => item.menuId === id);
+    if (newTab) {
+      this.setState((prevState) => {
+        const tabExists = prevState.tabsData.some((tab) => tab.menuId === id);
+        if (!tabExists) {
+          return {
+            tabsData: [...prevState.tabsData, newTab],
+            loading: false
+          };
+        } else {
+          return { tabsData: prevState.tabsData, loading: false };
+        }
+      }, () => {
+        console.log(this.state);
+      });
+    } else {
+      console.log(`No se encontró un elemento con menuId: ${id}`);
+    }
+  }
 
   async componentDidMount() {
     try {
-
-      const tabs = [
-        {
-          id: 'distrito',
-          label: 'Distrito',
-          icon: 'Build',
-          content: <UiDistritoGridImpl />
-        },
-        {
-          id: 'dashboard',
-          label: 'Dashboard',
-          icon: 'Build',
-          content: <div>Dashboard Content</div>
-        }
-      ]
-
-      const [menuData, profileData]: any[] = await Promise.all([
+      const [menuData, profileData] = await Promise.all([
         getMenu(),
         getCurrentProfile()
       ]);
-      this.setState({ menuData, profileData: profileData[0], tabsData: tabs, loading: false });
+      this.setState({ 
+        menuData, 
+        profileData: profileData[0], 
+        loading: false 
+      });
     } catch (error) {
       this.setState({ loading: false });
       console.error('Error fetching menu data:', error);
@@ -58,7 +73,7 @@ export class UiSesionHome extends Component {
           south={<Footer />}
           center={
             (<>
-              { menuData && (<UiMenuBar data={menuData} />) }
+              { menuData && (<UiMenuBar data={menuData} callback={(id) => this.callbackMenu(id)} />) }
               <UiTabPanel data={tabsData} />
             </>)
           }
