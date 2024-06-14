@@ -23,11 +23,20 @@ export class UiSesionHome extends Component<UiSesionHomeProps, UiSesionHomeState
     };
   }
 
-  callbackMenu = (id: number) => {
-    const newTab: Tab | undefined = MENU_TABS.find((item) => item.menuId === id);
+  callbackTab = (id: string) => {
+    this.setState((prevState) => ({
+      tabsData: prevState.tabsData.filter(tab => tab.id !== id),
+      loading: false
+    }), () => {
+      console.log(this.state);
+    });
+  }
+
+  callbackMenu = (menuId: number) => {
+    const newTab: Tab | undefined = MENU_TABS.find((item) => item.menuId === menuId);
     if (newTab) {
       this.setState((prevState) => {
-        const tabExists = prevState.tabsData.some((tab) => tab.menuId === id);
+        const tabExists = prevState.tabsData.some((tab) => tab.menuId === menuId);
         if (!tabExists) {
           return {
             tabsData: [...prevState.tabsData, newTab],
@@ -40,7 +49,7 @@ export class UiSesionHome extends Component<UiSesionHomeProps, UiSesionHomeState
         console.log(this.state);
       });
     } else {
-      console.log(`No se encontró un elemento con menuId: ${id}`);
+      console.log(`No se encontró un elemento con menuId: ${menuId}`);
     }
   }
 
@@ -73,8 +82,8 @@ export class UiSesionHome extends Component<UiSesionHomeProps, UiSesionHomeState
           south={<Footer />}
           center={
             (<>
-              { menuData && (<UiMenuBar data={menuData} callback={(id) => this.callbackMenu(id)} />) }
-              <UiTabPanel data={tabsData} />
+              { menuData && (<UiMenuBar data={menuData} callback={(menuId) => this.callbackMenu(menuId)} />) }
+              <UiTabPanel data={tabsData} callback={(id) => this.callbackTab(id)} />
             </>)
           }
         />)

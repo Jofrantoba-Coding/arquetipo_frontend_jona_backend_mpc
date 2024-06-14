@@ -24,6 +24,7 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
   }
 
   handleTabClose(tabId: string) {
+    this.props.callback(tabId)     
     this.setState((prevState) => {
       const newTabs = prevState.tabs.filter(tab => tab.id !== tabId);
       let newActiveTab = prevState.activeTab;
@@ -45,12 +46,11 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
   }
 
   componentDidUpdate(prevProps: UiTabPanelProps) {
-    // Solo actualizar el estado si `data` ha cambiado
+    console.log('prevProps.data', prevProps.data)
+    console.log('this.props.data', this.props.data)
     if (prevProps.data !== this.props.data) {
-      // Actualiza `tabs` con los nuevos datos
       this.setState({ 
         tabs: this.props.data,
-        // Mantener el `activeTab` actual si sigue existiendo, de lo contrario establecer el primer tab como activo
         activeTab: this.props.data.length > 0 ? this.props.data[0].id : ''
       });
     }
@@ -60,15 +60,13 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
   render() {
     console.log('entra tabs');
     const { activeTab, tabs } = this.state;
-
     return (
       <div className="tab-panel">
         <div className="border-b border-gray-200">
           <ul className="flex px-4 flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
             {tabs.map(tab => (
               <li className="tab-item" key={tab.id}>
-                  <a
-                    href="#"
+                  <button
                     onClick={() => this.handleTabClick(tab.id)}
                     className={`relative inline-flex items-center justify-center py-4 px-8 border-b-2 rounded-t-xl group ${
                     activeTab === tab.id ? 'text-white bg-[#DD3333] border-[#DD3333]' : 'border-transparent hover:text-gray-600 hover:border-gray-300'
@@ -78,7 +76,9 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
                     {tab.label}
                     {activeTab === tab.id && (
                     <button
-                      onClick={() => this.handleTabClose(tab.id)}
+                      onClick={() => {
+                        this.handleTabClose(tab.id)                
+                      }}
                       type='button'
                       className="ml-2 absolute top-[-5px] right-[-5px] text-2xl rounded-full border-2 border-red-600 cursor-pointer"
                     >
@@ -88,7 +88,7 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
                     </button>
 
                   )}
-                  </a>
+                  </button>
                   
               </li>
             ))}
