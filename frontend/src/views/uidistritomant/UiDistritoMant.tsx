@@ -1,11 +1,8 @@
 import { Component } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { UiDistritoMantState } from './UiDistritoMantState';
-import { validationUpdateSchema, validationCreateSchema } from './UiDistritoMantValidation';
-import { UiDistritoMantProps } from './UiDistritoMantProps';
-import { InterUiDistritoMantCrud, InterUiDistritoMantDelete } from './InterUiDistritoMant';
-import { deleteDistrito, updateDistrito } from '../../services/api-mantenimientos/distrito';
-import { showToast } from '../../uiutils/uitoast/UiToast';
+import { UiDistritoMantProps, validationUpdateSchema, validationCreateSchema } from './UiDistritoMantProps';
+import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantDelete, InterUiDistritoMantTitleCrud } from './InterUiDistritoMant';
 import UiButton from '../../uiutils/uibutton/UiButton';
 import UiIcon from '../../uiutils/uiicon/UiIcon';
 
@@ -15,7 +12,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
 
         const { mode, data } = props;
 
-        const defaultData: InterUiDistritoMantCrud = {
+        const defaultData: InterUiDistritoMantCreate | InterUiDistritoMantEdit = {
             descripcion: data?.descripcion,
             codigoDistrito: data?.codigodistrito,
             orden: data?.orden,
@@ -25,55 +22,48 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
         };
 
         if (mode !== 'create') {
-            defaultData.id = Number(props.data?.id);
+            (defaultData as InterUiDistritoMantEdit).id = data?.id;
         }
 
         this.state = {
+            departamentos: [],
             provincias: [],
-            defaultData,
-            showDeleteConfirmation: false,
+            defaultData
         };
     }
 
-    handleDelete = () => {
-        this.setState({ showDeleteConfirmation: true });
+    getTitle = (mode: 'delete' | 'edit' | 'create' | 'view') => {
+        const titles: InterUiDistritoMantTitleCrud = {
+            delete: 'Eliminar Distrito',
+            edit: 'Editar Distrito',
+            create: 'Crear Distrito',
+            view: 'Ver Distrito',
+        };
+
+        return titles[mode];
     }
 
-    handleCancelDelete = () => {
-        this.setState({ showDeleteConfirmation: false });
+    handleCreate = (data: InterUiDistritoMantCreate) => {
+        console.log(data)
     }
 
-    handleUpdate = async (data: InterUiDistritoMantCrud) => {
-        const dataUpdate = await updateDistrito(data);
-        showToast({ type: 'success', message: 'Distrito actualizado' })
-        console.log(dataUpdate)
-        this.props.onClose();
+    handleUpdate = (data: InterUiDistritoMantEdit) => {
+        console.log(data)
     }
 
-    handleConfirmDelete = async (data: InterUiDistritoMantDelete) => {
-        const dataDelete = await deleteDistrito(data)
-        console.log(dataDelete)
-        this.setState({ showDeleteConfirmation: false });
-        this.props.onClose();
+    handleDelete = (data: InterUiDistritoMantDelete) => {
+        console.log(data)
+    }
+
+    handleChangeDepartamento = (event: any) => {
+        const selectedValue = event.target.value;
+        console.log('event listener', selectedValue)
     }
 
     render() {
         const { onClose, onSubmit, mode } = this.props;
-        const { provincias, defaultData, showDeleteConfirmation } = this.state;
+        const { departamentos, provincias, defaultData } = this.state;
         const isEditable = mode === 'edit' || mode === 'create';
-
-        const getTitle = () => {
-            if (showDeleteConfirmation) {
-                return 'Eliminar Distrito';
-            }
-            if (mode === 'edit') {
-                return 'Editar Distrito';
-            }
-            if (mode === 'create') {
-                return 'Crear Distrito';
-            }
-            return 'Ver Distrito';
-        };
 
         return (
             <div
@@ -87,7 +77,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                 >
                     <div className="flex items-center justify-between p-4 border-b rounded-t">
                         <h3 className="text-lg font-semibold text-gray-900">
-                            {getTitle()}
+                            {this.getTitle(mode)}
                         </h3>
                         <button
                             type="button"
@@ -99,9 +89,9 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                         </button>
                     </div>
 
-                    {showDeleteConfirmation ? (
+                    {mode === 'delete' ? (
                         <div className="space-y-2 p-2">
-                            <div className="p-4 space-y-2 text-center dark:text-white">
+                            <div className="p-4 space-y-2 text-center ">
                                 <p className="text-gray-500">¿Está seguro de que desea eliminar este distrito?</p>
                             </div>
 
@@ -113,7 +103,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                         <UiButton
                                             type={'button'}
                                             color={'dark'}
-                                            callback={this.handleCancelDelete}
+                                            callback={onClose}
                                             className={'justify-center'}
                                             text={'Cancelar'}
                                         />
@@ -122,7 +112,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                             type={'button'}
                                             color={'red'}
                                             className={'justify-center'}
-                                            callback={() => this.handleConfirmDelete({ id: defaultData?.id })}
+                                            callback={() => this.handleDelete({ id: (defaultData as InterUiDistritoMantEdit).id })}
                                             text={'Eliminar'}
                                         />
                                     </div>
@@ -134,7 +124,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                             initialValues={defaultData}
                             validationSchema={mode === 'edit' ? validationUpdateSchema : validationCreateSchema}
                             onSubmit={(values, { setSubmitting }) => {
-                                const formattedValues = {
+                                const formattedValues: any = {
                                     ...values,
                                     orden: Number(values.orden),
                                     provincia: {
@@ -142,7 +132,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                     }
                                 };
                                 if (mode === 'edit') {
-                                    formattedValues.id = Number(values.id);
+                                    formattedValues.id = Number((values as InterUiDistritoMantEdit).id);
                                 }
                                 onSubmit(formattedValues);
                                 setSubmitting(false);
@@ -192,6 +182,27 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                             {isEditable && <ErrorMessage name="descripcion" component="div" className="text-red-600 text-sm mt-1" />}
                                         </div>
 
+                                        { mode === 'create' && (
+                                            <div className="col-span-2">
+                                                <label htmlFor="departamento-id" className="block mb-2 text-sm font-medium text-gray-900">Departamento</label>
+                                                <Field
+                                                    as="select"
+                                                    name="departamento.id"
+                                                    id="departamento-id"
+                                                    onChange={this.handleChangeDepartamento}
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                    readOnly={!isEditable}
+                                                >
+                                                    {departamentos.map((departamento) => (
+                                                        <option key={departamento.id} value={departamento.id}>
+                                                            {departamento.descripcion}
+                                                        </option>
+                                                    ))}
+                                                </Field>
+                                                {isEditable && <ErrorMessage name="departamento.id" component="div" className="text-red-600 text-sm mt-1" />}
+                                            </div>
+                                        )}
+
                                         <div className="col-span-2">
                                             <label htmlFor="provincia-id" className="block mb-2 text-sm font-medium text-gray-900">Provincia</label>
                                             <Field
@@ -235,15 +246,6 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                                         icon={'Save'}
                                                         text={mode === 'edit' ? 'Guardar' : 'Crear'}
                                                     />
-                                                    {mode === 'edit' && (
-                                                        <UiButton
-                                                            type={'button'}
-                                                            color={'red'}
-                                                            callback={this.handleDelete}
-                                                            icon={'Delete'}
-                                                            text={'Eliminar'}
-                                                        />
-                                                    )}
                                                 </>
                                             )}
                                         </div>

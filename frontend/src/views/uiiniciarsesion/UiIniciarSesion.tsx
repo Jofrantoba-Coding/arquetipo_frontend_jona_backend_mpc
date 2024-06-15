@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-import { UiIniciarSesionProps } from './UiIniciarSesionProps';
+import { UiIniciarSesionProps, validationSchema } from './UiIniciarSesionProps';
 import { UiIniciarSesionState } from './UiIniciarSesionState';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { ERRORS, INVALID } from '../../constants/validation';
-import * as Yup from 'yup';
 import UiButton from '../../uiutils/uibutton/UiButton';
-
-const validationSchema = Yup.object({
-  email: Yup.string().email(INVALID.EMAIL).required(ERRORS.REQUIRED),
-  password: Yup.string().required(ERRORS.REQUIRED),
-});
 
 export class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSesionState> {
   state: UiIniciarSesionState = {

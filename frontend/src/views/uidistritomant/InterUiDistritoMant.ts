@@ -2,8 +2,7 @@ export interface InterUiDistritoMant {
     loadingData?: () => void
 }
 
-export interface InterUiDistritoMantCrud {
-    id?: number | undefined;
+export interface InterUiDistritoMantCreate {
     descripcion: string | undefined;
     codigoDistrito: string | undefined;
     orden: number | undefined;
@@ -12,6 +11,11 @@ export interface InterUiDistritoMantCrud {
     };
 }
 
+export interface InterUiDistritoMantEdit extends InterUiDistritoMantCreate {
+    id: number | undefined;
+}
+
+
 export interface InterUiDistritoMantDelete {
     id: number | undefined;
 }
@@ -19,4 +23,16 @@ export interface InterUiDistritoMantDelete {
 export interface InterUiProvincia {
     id: number;
     descripcion: string
+}
+
+export interface InterUiDepartamento {
+    id: number;
+    descripcion: string
+}
+
+export interface InterUiDistritoMantTitleCrud {
+    edit: string;
+    create: string;
+    view: string;
+    delete: string;
 }

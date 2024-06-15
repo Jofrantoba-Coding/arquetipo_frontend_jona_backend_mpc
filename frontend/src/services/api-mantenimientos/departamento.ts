@@ -6,7 +6,7 @@ export const getDepartamentosAll = async () => {
     const config: AxiosRequestConfig = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `${process.env.REACT_APP_API_URL}/distrito/listar/all`,
+        url: `${process.env.REACT_APP_API_URL}/departamento/listar/all`,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

@@ -1,4 +1,6 @@
 import Cookies from 'js-cookie';
+import { UiTitleBarUser } from '../uiutils/uititlebar/InterUiTitleBar';
+import { UiIniciarSesionResponse } from '../views/uiiniciarsesion/InterUiIniciarSesion';
 
 const getExpirationTime = (expiresIn: number) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
@@ -11,7 +13,7 @@ const getUser = () => {
   return { id: '' };
 }
 
-const setUser = (user: any) => {
+const setUser = (user: UiTitleBarUser) => {
   Cookies.set('auth_user', JSON.stringify(user));
 }
 
@@ -49,7 +51,7 @@ const getSession = () => {
   return null;
 }
 
-const setSession = (session: any) => {
+const setSession = (session: UiIniciarSesionResponse) => {
   const { token_type, session_state, clientName, realmName, expires_in, refresh_expires_in } = session;
   const expirationDate = getExpirationTime(expires_in);
   const sessionString = JSON.stringify({

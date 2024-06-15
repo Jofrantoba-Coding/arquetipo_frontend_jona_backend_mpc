@@ -1,10 +1,11 @@
 const ERRORS = {
-    REQUIRED: 'Campo requerido',
-    
 }
 
 const INVALID = {
-    EMAIL: 'Correo electrónico inválido'
+    REQUIRED: 'Campo requerido',
+    EMAIL: 'Correo electrónico inválido',
+    MIN_ZERO: 'El campo debe ser mayor o igual a 0',
+    ID: 'El campo debe ser una ID válido'
 }
 
 export {

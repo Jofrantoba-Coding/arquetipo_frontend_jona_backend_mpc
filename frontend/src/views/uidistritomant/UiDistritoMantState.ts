@@ -1,7 +1,7 @@
-import { InterUiDistritoMantCrud, InterUiProvincia } from "./InterUiDistritoMant";
+import { InterUiDepartamento, InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiProvincia } from "./InterUiDistritoMant";
 
 export interface UiDistritoMantState {
+    departamentos: InterUiDepartamento[];
     provincias: InterUiProvincia[];
-    defaultData: InterUiDistritoMantCrud;
-    showDeleteConfirmation: boolean
+    defaultData: InterUiDistritoMantCreate | InterUiDistritoMantEdit;
 }

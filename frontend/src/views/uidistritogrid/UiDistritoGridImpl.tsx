@@ -9,43 +9,33 @@ export class UiDistritoGridImpl extends UiDistritoGrid {
     }
 
     async loadingData(page: number = 0) {
-        console.log('loading data')
         if (this.state.isLoading) return;
 
         this.setState({ isLoading: true });
 
-        const data = await getDistritos(10, page * 10);
-        this.setState(prevState => ({
-            distritos: [...prevState.distritos, ...data],
-            currentPage: page,
-            isLoading: false
-        }));
-    }
-
-    handleScroll = () => {
-        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-        if (scrollTop + clientHeight >= scrollHeight - 100 && !this.state.isLoading) {
-            this.loadingData(this.state.currentPage + 1);
+        try {
+            const data = await getDistritos(10, page * 10);
+            this.setState(prevState => ({
+                distritos: page === 0 ? data : [...prevState.distritos, ...data],
+                currentPage: page,
+                isLoading: false
+            }));
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            this.setState({ isLoading: false });
         }
-    }
-
-    callbackModal = async () => {
-        this.loadingData();
     }
 
     componentDidMount() {
         this.loadingData();
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 
     render() {
-        return (
-            <div>
-                {super.render()}
-            </div>
-        );
+        return super.render();
     }
-    static defaultProps: Partial<UiDistritoGridProps> = {
-        loadingData: UiDistritoGridImpl.prototype.loadingData
-    };
-
 }

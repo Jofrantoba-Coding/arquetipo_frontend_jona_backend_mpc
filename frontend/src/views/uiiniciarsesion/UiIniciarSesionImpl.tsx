@@ -16,7 +16,7 @@ export class UiIniciarSesionImpl extends UiIniciarSesion {
     // Lógica para iniciar sesión, por ejemplo, llamada a una API o autenticación
     try {
       // Lógica de autenticación (supongamos que aquí hay una llamada a una API)
-      const response: any = await getLogin({email, password})
+      const response = await getLogin({email, password})
       
       if (response) {
         // Autenticación exitosa, redirigir a la página de inicio

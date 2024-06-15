@@ -1,14 +1,14 @@
-interface Role {
+interface UiTitleBarRole {
     id: string;
     descripcion: string;
   }
   
-  interface Perfil {
+  interface UiTitleBarPerfil {
     id: string;
     descripcion: string;
   }
   
-  interface User {
+  export interface UiTitleBarUser {
     id: number;
     firstname: string;
     lastname: string;
@@ -19,10 +19,10 @@ interface Role {
     idsistema: number;
     idrealm: string;
     iduserentity: string;
-    roles: Role[];
-    perfiles: Perfil[];
+    roles: UiTitleBarRole[];
+    perfiles: UiTitleBarPerfil[];
   }
 
 export interface TitleBarProps {
-    data?: User;
+    data?: UiTitleBarUser;
 }

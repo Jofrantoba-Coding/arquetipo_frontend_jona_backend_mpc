@@ -17,6 +17,8 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
             currentPage: 1, 
             isLoading: false,
         };
+
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount() {
@@ -27,9 +29,10 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
         window.removeEventListener('scroll', this.handleScroll);
     }
 
-    handleScroll = () => {
+    handleScroll() {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
         if (scrollTop + clientHeight >= scrollHeight - 100 && !this.state.isLoading) {
+            this.props.loadingData?.(this.state.currentPage + 1);
         }
     }
 
@@ -37,7 +40,7 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
         this.setState({
             modalOpen: true,
             modalMode: 'create',
-        })
+        });
     }
 
     editModal = (distrito: InterUiDistritoGrid) => {
@@ -56,6 +59,14 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
         });
     }
 
+    deleteModal = (distrito: InterUiDistritoGrid) => {
+        this.setState({
+            modalOpen: true,
+            modalMode: 'delete',
+            selectedDistrito: distrito
+        });
+    }
+
     closeModal = () => {
         this.setState({
             modalOpen: false,
@@ -64,6 +75,7 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
     }
 
     callbackModal = async () => {
+        this.props.loadingData?.(0);
         this.closeModal();
     }
 
@@ -116,8 +128,7 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
                         {distritos.map((item, index) => (
                             <tr
                                 key={`distrito-${item.id}`}
-                                className={`border-b hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                                    }`}
+                                className={`border-b hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
                             >
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {item.descripcion}
@@ -141,6 +152,13 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
                                         onClick={() => this.editModal(item)}
                                     >
                                         <UiIcon name="Edit" />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2"
+                                        onClick={() => this.deleteModal(item)}
+                                    >
+                                        <UiIcon name="Delete" />
                                     </button>
                                 </td>
                             </tr>
