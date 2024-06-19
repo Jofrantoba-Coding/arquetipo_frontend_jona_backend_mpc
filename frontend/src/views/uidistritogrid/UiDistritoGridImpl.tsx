@@ -9,16 +9,9 @@ export class UiDistritoGridImpl extends UiDistritoGrid {
     }
 
     loadingData = async (page: number = 1) => {
-        console.log('loading data')
         if (this.state.isLoading) return;
-        console.log('loading data 2')
-
         this.setState({ isLoading: true });
-        console.log('loading data 3')
-
         try {
-            console.log('loading data 4')
-
             const data = await getDistritos(10, page * 10);
             console.log('distritos', data)
             this.setState(prevState => ({
@@ -33,7 +26,7 @@ export class UiDistritoGridImpl extends UiDistritoGrid {
     }
 
     componentDidMount() {
-        this.loadingData();
+        this.loadingData?.(0);
         window.addEventListener('scroll', this.handleScroll);
     }
 
@@ -46,6 +39,7 @@ export class UiDistritoGridImpl extends UiDistritoGrid {
           <UiDistritoGrid
             {...this.props}
             loadingData={this.loadingData}
+            distritos={this.state.distritos}
           />
         );
       }
