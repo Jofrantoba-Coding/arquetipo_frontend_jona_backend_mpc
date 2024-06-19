@@ -151,6 +151,45 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                             {({ isSubmitting }) => (
                                 <Form className="p-4 md:p-5">
                                     <div className="grid gap-4 grid-cols-2">
+                                        { mode === 'create' && (
+                                            <div className="col-span-2">
+                                                <label htmlFor="departamento-id" className="block mb-2 text-sm font-medium text-gray-900">Departamento</label>
+                                                <Field
+                                                    as="select"
+                                                    name="departamento.id"
+                                                    id="departamento-id"
+                                                    onChange={this.handleChangeDepartamento}
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                    readOnly={!isEditable}
+                                                >
+                                                    {departamentos?.map((departamento) => (
+                                                        <option key={departamento.id} value={departamento.id}>
+                                                            {departamento.descripcion}
+                                                        </option>
+                                                    ))}
+                                                </Field>
+                                                {isEditable && <ErrorMessage name="departamento.id" component="div" className="text-red-600 text-sm mt-1" />}
+                                            </div>
+                                        )}
+
+                                        <div className="col-span-2">
+                                            <label htmlFor="provincia-id" className="block mb-2 text-sm font-medium text-gray-900">Provincia</label>
+                                            <Field
+                                                as="select"
+                                                name="provincia.id"
+                                                id="provincia-id"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                readOnly={!isEditable}
+                                            >
+                                                {provincias?.map((provincia) => (
+                                                    <option key={provincia.id} value={provincia.id}>
+                                                        {provincia.descripcion}
+                                                    </option>
+                                                ))}
+                                            </Field>
+                                            {isEditable && <ErrorMessage name="provincia.id" component="div" className="text-red-600 text-sm mt-1" />}
+                                        </div>
+
                                         {mode !== 'create' && (
                                             <div className="col-span-2 sm:col-span-1">
                                                 <label htmlFor="id" className="block mb-2 text-sm font-medium text-gray-900">ID</label>
@@ -189,45 +228,6 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                                 readOnly={!isEditable}
                                             />
                                             {isEditable && <ErrorMessage name="descripcion" component="div" className="text-red-600 text-sm mt-1" />}
-                                        </div>
-
-                                        { mode === 'create' && (
-                                            <div className="col-span-2">
-                                                <label htmlFor="departamento-id" className="block mb-2 text-sm font-medium text-gray-900">Departamento</label>
-                                                <Field
-                                                    as="select"
-                                                    name="departamento.id"
-                                                    id="departamento-id"
-                                                    onChange={this.handleChangeDepartamento}
-                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                                    readOnly={!isEditable}
-                                                >
-                                                    {departamentos?.map((departamento) => (
-                                                        <option key={departamento.id} value={departamento.id}>
-                                                            {departamento.descripcion}
-                                                        </option>
-                                                    ))}
-                                                </Field>
-                                                {isEditable && <ErrorMessage name="departamento.id" component="div" className="text-red-600 text-sm mt-1" />}
-                                            </div>
-                                        )}
-
-                                        <div className="col-span-2">
-                                            <label htmlFor="provincia-id" className="block mb-2 text-sm font-medium text-gray-900">Provincia</label>
-                                            <Field
-                                                as="select"
-                                                name="provincia.id"
-                                                id="provincia-id"
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                                readOnly={!isEditable}
-                                            >
-                                                {provincias?.map((provincia) => (
-                                                    <option key={provincia.id} value={provincia.id}>
-                                                        {provincia.descripcion}
-                                                    </option>
-                                                ))}
-                                            </Field>
-                                            {isEditable && <ErrorMessage name="provincia.id" component="div" className="text-red-600 text-sm mt-1" />}
                                         </div>
 
                                         <div className="col-span-2 sm:col-span-1">
