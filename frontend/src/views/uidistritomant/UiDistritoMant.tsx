@@ -64,8 +64,8 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
     }
 
     render() {
-        const { onClose, mode } = this.props;
-        const { departamentos, provincias, defaultData } = this.state;
+        const { onClose, mode, departamentos, provincias } = this.props;
+        const { defaultData } = this.state;
         const isEditable = mode === 'edit' || mode === 'create';
 
         return (
@@ -202,7 +202,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                                     readOnly={!isEditable}
                                                 >
-                                                    {departamentos.map((departamento) => (
+                                                    {departamentos?.map((departamento) => (
                                                         <option key={departamento.id} value={departamento.id}>
                                                             {departamento.descripcion}
                                                         </option>
@@ -221,7 +221,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                                 readOnly={!isEditable}
                                             >
-                                                {provincias.map((provincia) => (
+                                                {provincias?.map((provincia) => (
                                                     <option key={provincia.id} value={provincia.id}>
                                                         {provincia.descripcion}
                                                     </option>

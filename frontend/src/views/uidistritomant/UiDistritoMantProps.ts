@@ -1,5 +1,5 @@
 import { InterUiDistritoGrid } from "../uidistritogrid/InterUiDistritoGrid";
-import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantDelete, InterUiProvincia } from "./InterUiDistritoMant";
+import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantDelete, InterUiProvincia, InterUiDepartamento } from "./InterUiDistritoMant";
 import * as Yup from 'yup';
 import { INVALID } from '../../constants/validation';
 
@@ -9,6 +9,7 @@ export interface UiDistritoMantProps {
     handleUpdate?: (data: InterUiDistritoMantEdit) => Promise<void>;
     handleDelete?: (data: InterUiDistritoMantDelete) => Promise<void>;
     provincias?: InterUiProvincia[];
+    departamentos?: InterUiDepartamento[];
     mode: 'create' | 'edit' | 'view' | 'delete'
     data?: InterUiDistritoGrid | null;
     onClose: () => void;

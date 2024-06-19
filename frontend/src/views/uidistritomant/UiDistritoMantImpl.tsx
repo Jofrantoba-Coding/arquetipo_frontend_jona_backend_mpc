@@ -73,6 +73,8 @@ export class UiDistritoMantImpl extends UiDistritoMant {
         handleCreate={this.handleCreate}
         handleUpdate={this.handleUpdate}
         handleDelete={this.handleDelete}
+        provincias={this.state.provincias}
+        departamentos={this.state.departamentos}
       />
     );
   }
