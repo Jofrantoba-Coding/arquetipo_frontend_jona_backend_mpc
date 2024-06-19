@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { UiDistritoMantState } from './UiDistritoMantState';
 import { UiDistritoMantProps, validationUpdateSchema, validationCreateSchema } from './UiDistritoMantProps';
-import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantDelete, InterUiDistritoMantTitleCrud } from './InterUiDistritoMant';
+import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantTitleCrud } from './InterUiDistritoMant';
 import UiButton from '../../uiutils/uibutton/UiButton';
 import UiIcon from '../../uiutils/uiicon/UiIcon';
 
@@ -43,17 +43,20 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
         return titles[mode];
     }
 
-    handleCreate = (data: InterUiDistritoMantCreate) => {
-        console.log(data)
-    }
-
-    handleUpdate = (data: InterUiDistritoMantEdit) => {
-        console.log(data)
-    }
-
-    handleDelete = (data: InterUiDistritoMantDelete) => {
-        console.log(data)
-    }
+    handleSubmit = async (data: any) => {
+        console.log('data', data)
+        console.log('mode', this.props.mode)
+        if(this.props.mode === 'create') {
+            await this.props.handleCreate?.(data)
+        }
+        if(this.props.mode === 'edit') {
+            await this.props.handleUpdate?.(data)
+        }
+        if(this.props.mode === 'delete') {
+            this.props.handleDelete?.(data)
+        }
+    };
+    
 
     handleChangeDepartamento = (event: any) => {
         const selectedValue = event.target.value;
@@ -61,7 +64,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
     }
 
     render() {
-        const { onClose, onSubmit, mode } = this.props;
+        const { onClose, mode } = this.props;
         const { departamentos, provincias, defaultData } = this.state;
         const isEditable = mode === 'edit' || mode === 'create';
 
@@ -112,7 +115,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                             type={'button'}
                                             color={'red'}
                                             className={'justify-center'}
-                                            callback={() => this.handleDelete({ id: (defaultData as InterUiDistritoMantEdit).id })}
+                                            callback={() => this.handleSubmit({ id: (defaultData as InterUiDistritoMantEdit).id })}
                                             text={'Eliminar'}
                                         />
                                     </div>
@@ -123,20 +126,26 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                         <Formik
                             initialValues={defaultData}
                             validationSchema={mode === 'edit' ? validationUpdateSchema : validationCreateSchema}
-                            onSubmit={(values, { setSubmitting }) => {
+                            onSubmit={ (values, { setSubmitting }) => {
+                                console.log('submit');
                                 const formattedValues: any = {
-                                    ...values,
-                                    orden: Number(values.orden),
-                                    provincia: {
-                                        id: Number(values.provincia.id)
-                                    }
+                                  ...values,
+                                  orden: Number(values.orden),
+                                  provincia: {
+                                    id: Number(values.provincia.id)
+                                  }
                                 };
+                              
                                 if (mode === 'edit') {
-                                    formattedValues.id = Number((values as InterUiDistritoMantEdit).id);
+                                  formattedValues.id = Number((values as InterUiDistritoMantEdit).id);
+                                    this.handleSubmit(formattedValues);
+                                } else if (mode === 'create') {
+                                    this.handleSubmit(formattedValues);
                                 }
-                                onSubmit(formattedValues);
+                              
+                                console.log('submit 2');
                                 setSubmitting(false);
-                                onClose();
+                                console.log('submit 3');
                             }}
                         >
                             {({ isSubmitting }) => (
@@ -239,9 +248,10 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                         <div className="col-span-2  flex justify-between">
                                             {(mode === 'edit' || mode === 'create') && (
                                                 <>
+                                                    { isSubmitting }
                                                     <UiButton
                                                         type={'submit'}
-                                                        disabled={isSubmitting}
+                                                        disabled={false}
                                                         color={'green'}
                                                         icon={'Save'}
                                                         text={mode === 'edit' ? 'Guardar' : 'Crear'}

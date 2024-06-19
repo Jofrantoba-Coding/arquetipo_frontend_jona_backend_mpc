@@ -1,17 +1,18 @@
 import { InterUiDistritoGrid } from "../uidistritogrid/InterUiDistritoGrid";
-import { InterUiDistritoMant, InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantDelete } from "./InterUiDistritoMant";
+import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantDelete, InterUiProvincia } from "./InterUiDistritoMant";
 import * as Yup from 'yup';
 import { INVALID } from '../../constants/validation';
 
-export interface UiDistritoMantProps extends InterUiDistritoMant {
-    onClose: () => void;
-    onSubmit: (data: InterUiDistritoMantCreate | InterUiDistritoMantEdit) => void;
-    handleChangeDepartamento: (event: any) => void;
-    handleCreate: (data: InterUiDistritoMantCreate | InterUiDistritoMantEdit) => void;
-    handleUpdate: (data: InterUiDistritoMantCreate | InterUiDistritoMantEdit) => void;
-    handleDelete: (data: InterUiDistritoMantDelete) => void;
-    data?: InterUiDistritoGrid | null;
+export interface UiDistritoMantProps {
+    handleChangeDepartamento?: (event: any) => void;
+    handleCreate?: (data: InterUiDistritoMantCreate) => Promise<void>;
+    handleUpdate?: (data: InterUiDistritoMantEdit) => Promise<void>;
+    handleDelete?: (data: InterUiDistritoMantDelete) => Promise<void>;
+    provincias?: InterUiProvincia[];
     mode: 'create' | 'edit' | 'view' | 'delete'
+    data?: InterUiDistritoGrid | null;
+    onClose: () => void;
+    onSubmit: (data: InterUiDistritoMantCreate | InterUiDistritoMantEdit) => void;    
 }
 
 export const validationUpdateSchema = Yup.object({

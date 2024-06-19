@@ -75,12 +75,12 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
     }
 
     callbackModal = async () => {
-        this.props.loadingData?.(0);
-        this.closeModal();
+        this.props.loadingData?.(1);
     }
 
     render() {
-        const { distritos, modalOpen, modalMode, selectedDistrito, isLoading } = this.state;
+        const { distritos } = this.props;
+        const { modalOpen, modalMode, selectedDistrito, isLoading } = this.state;
         return (
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white">
@@ -125,7 +125,7 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
                         </tr>
                     </thead>
                     <tbody>
-                        {distritos.map((item, index) => (
+                        {distritos?.map((item, index) => (
                             <tr
                                 key={`distrito-${item.id}`}
                                 className={`border-b hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}

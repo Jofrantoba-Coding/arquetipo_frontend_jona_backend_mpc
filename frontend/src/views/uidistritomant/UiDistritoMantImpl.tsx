@@ -10,6 +10,9 @@ export class UiDistritoMantImpl extends UiDistritoMant {
   constructor(props: UiDistritoMantProps) {
     super(props);
     this.loadingData = this.loadingData.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   async loadingData() {
@@ -32,26 +35,29 @@ export class UiDistritoMantImpl extends UiDistritoMant {
   };
 
   handleCreate = async (data: InterUiDistritoMantCreate) => {
-      const dataCreate = await createDistrito(data);
-      showToast({ type: 'success', message: 'Distrito creado' })
-      console.log(dataCreate)
-      this.props.onClose();
+    console.log('entra create')
+    const dataCreate = await createDistrito(data);
+    showToast({ type: 'success', message: 'Distrito creado' })
+    console.log(dataCreate)
+    //this.props.onClose();
   }
 
   handleUpdate = async (data: InterUiDistritoMantEdit) => {
-      const dataUpdate = await updateDistrito(data);
-      showToast({ type: 'success', message: 'Distrito actualizado' })
-      console.log(dataUpdate)
-      this.props.onClose();
+    console.log('entra update')
+    const dataUpdate = await updateDistrito(data);
+    showToast({ type: 'success', message: 'Distrito actualizado' })
+    console.log(dataUpdate)
+    //this.props.onClose();
   }
 
   handleDelete = async (data: InterUiDistritoMantDelete) => {
-      const dataDelete = await deleteDistrito(data)
-      console.log(dataDelete)
-      this.props.onClose();
+    console.log('entra delete')
+    const dataDelete = await deleteDistrito(data)
+    console.log(dataDelete)
+    //this.props.onClose();
   }
 
-  async loadProvinciasForDepartamento(departamentoId: number) {
+  loadProvinciasForDepartamento = async (departamentoId: number) => {
     const provincias = await getProvinciaByIdDepartamento(departamentoId);
     this.setState({ provincias });
   }
@@ -62,12 +68,12 @@ export class UiDistritoMantImpl extends UiDistritoMant {
 
   render() {
     return (
-      <div>
-        {super.render()}
-      </div>
+      <UiDistritoMant
+        {...this.props}
+        handleCreate={this.handleCreate}
+        handleUpdate={this.handleUpdate}
+        handleDelete={this.handleDelete}
+      />
     );
   }
-  static defaultProps: Partial<UiDistritoMantProps> = {
-    loadingData: UiDistritoMantImpl.prototype.loadingData
-  };
 }
