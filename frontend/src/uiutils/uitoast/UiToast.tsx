@@ -1,20 +1,24 @@
-import { toast } from 'react-hot-toast';
+import { ToastOptions, toast } from 'react-hot-toast';
 import { InterUiToast } from './InterUiToast';
 
-
 export const showToast = ({ type, message, options }: InterUiToast) => {
+  const defaultOptions: ToastOptions = {
+    position: 'bottom-right',
+    ...options
+  };
+
   switch (type) {
     case 'success':
-      toast.success(message, options);
+      toast.success(message, defaultOptions);
       break;
     case 'error':
-      toast.error(message, options);
+      toast.error(message, defaultOptions);
       break;
     case 'loading':
-      toast.loading(message, options);
+      toast.loading(message, defaultOptions);
       break;
     default:
-      toast(message, options);
+      toast(message, defaultOptions);
       break;
   }
 };

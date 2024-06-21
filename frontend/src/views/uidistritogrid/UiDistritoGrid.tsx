@@ -32,7 +32,7 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
     handleScroll() {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
         if (scrollTop + clientHeight >= scrollHeight - 100 && !this.state.isLoading) {
-            this.props.loadingData?.(this.state.currentPage + 1);
+            this.props.loadingData?.(this.state.currentPage);
         }
     }
 

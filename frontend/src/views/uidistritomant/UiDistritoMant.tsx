@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { UiDistritoMantState } from './UiDistritoMantState';
 import { UiDistritoMantProps, validationUpdateSchema, validationCreateSchema } from './UiDistritoMantProps';
-import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantTitleCrud } from './InterUiDistritoMant';
+import { InterUiDistritoMantCreate, InterUiDistritoMantDelete, InterUiDistritoMantEdit, InterUiDistritoMantTitleCrud } from './InterUiDistritoMant';
 import UiButton from '../../uiutils/uibutton/UiButton';
 import UiIcon from '../../uiutils/uiicon/UiIcon';
 
@@ -43,22 +43,20 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
         return titles[mode];
     }
 
-    handleSubmit = async (data: any) => {
-        console.log('data', data)
-        console.log('mode', this.props.mode)
+    handleSubmit = async (data: InterUiDistritoMantCreate | InterUiDistritoMantEdit | InterUiDistritoMantDelete) => {
         if(this.props.mode === 'create') {
-            await this.props.handleCreate?.(data)
+            await this.props.handleCreate?.(data as InterUiDistritoMantCreate)
         }
         if(this.props.mode === 'edit') {
-            await this.props.handleUpdate?.(data)
+            await this.props.handleUpdate?.(data as InterUiDistritoMantEdit)
         }
         if(this.props.mode === 'delete') {
-            this.props.handleDelete?.(data)
+            this.props.handleDelete?.(data as InterUiDistritoMantDelete)
         }
     };
     
 
-    handleChangeDepartamento = (event: any) => {
+    handleChangeDepartamento = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue = event.target.value;
         console.log('event listener', selectedValue)
     }
@@ -127,25 +125,20 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                             initialValues={defaultData}
                             validationSchema={mode === 'edit' ? validationUpdateSchema : validationCreateSchema}
                             onSubmit={ (values, { setSubmitting }) => {
-                                console.log('submit');
-                                const formattedValues: any = {
+                                const formattedValues = {
                                   ...values,
                                   orden: Number(values.orden),
                                   provincia: {
                                     id: Number(values.provincia.id)
                                   }
                                 };
-                              
                                 if (mode === 'edit') {
-                                  formattedValues.id = Number((values as InterUiDistritoMantEdit).id);
+                                  (formattedValues as InterUiDistritoMantEdit).id = Number((values as InterUiDistritoMantEdit).id);
                                     this.handleSubmit(formattedValues);
                                 } else if (mode === 'create') {
                                     this.handleSubmit(formattedValues);
                                 }
-                              
-                                console.log('submit 2');
                                 setSubmitting(false);
-                                console.log('submit 3');
                             }}
                         >
                             {({ isSubmitting }) => (

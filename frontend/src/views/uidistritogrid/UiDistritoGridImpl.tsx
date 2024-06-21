@@ -13,10 +13,11 @@ export class UiDistritoGridImpl extends UiDistritoGrid {
         this.setState({ isLoading: true });
         try {
             const data = await getDistritos(10, page * 10);
+            console.log('handleScroll', page)
             console.log('distritos', data)
             this.setState(prevState => ({
                 distritos: [...prevState.distritos, ...data],
-                currentPage: page,
+                currentPage: prevState.currentPage + 1,
                 isLoading: false
             }));
         } catch (error) {
@@ -40,6 +41,7 @@ export class UiDistritoGridImpl extends UiDistritoGrid {
             {...this.props}
             loadingData={this.loadingData}
             distritos={this.state.distritos}
+            currentPage={this.state.currentPage} 
           />
         );
       }

@@ -30,31 +30,28 @@ export class UiDistritoMantImpl extends UiDistritoMant {
   handleChangeDepartamento = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedDepartamentoId = event.target.value;
     const provincias = await getProvinciaByIdDepartamento(Number(selectedDepartamentoId));
-    console.log(provincias)
+    console.log('provincias', provincias)
     this.setState({ provincias });
   };
 
   handleCreate = async (data: InterUiDistritoMantCreate) => {
-    console.log('entra create')
     const dataCreate = await createDistrito(data);
     showToast({ type: 'success', message: 'Distrito creado' })
-    console.log(dataCreate)
-    //this.props.onClose();
+    console.log('dataCreate', dataCreate)
+    this.props.onClose();
   }
 
   handleUpdate = async (data: InterUiDistritoMantEdit) => {
-    console.log('entra update')
     const dataUpdate = await updateDistrito(data);
     showToast({ type: 'success', message: 'Distrito actualizado' })
-    console.log(dataUpdate)
-    //this.props.onClose();
+    console.log('dataUpdate', dataUpdate)
+    this.props.onClose();
   }
 
   handleDelete = async (data: InterUiDistritoMantDelete) => {
-    console.log('entra delete')
     const dataDelete = await deleteDistrito(data)
-    console.log(dataDelete)
-    //this.props.onClose();
+    console.log('dataDelete', dataDelete)
+    this.props.onClose();
   }
 
   loadProvinciasForDepartamento = async (departamentoId: number) => {

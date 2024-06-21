@@ -46,15 +46,12 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
   }
 
   componentDidUpdate(prevProps: UiTabPanelProps) {
-    console.log('prevProps.data', prevProps.data)
-    console.log('this.props.data', this.props.data)
     if (prevProps.data !== this.props.data) {
       this.setState({ 
         tabs: this.props.data,
         activeTab: this.props.data.length > 0 ? this.props.data[0].id : ''
       });
     }
-    console.log('tabs udpdate', this.props)
   }
 
   render() {
