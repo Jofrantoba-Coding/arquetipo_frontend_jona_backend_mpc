@@ -1,0 +1,8 @@
+{
+    "scripts": {
+      "install-all": "lerna bootstrap",
+      "start": "lerna run start",
+      "build": "lerna run build",
+      "test": "lerna run test"
+    }
+  }

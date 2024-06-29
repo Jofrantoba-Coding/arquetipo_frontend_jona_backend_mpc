@@ -1,0 +1,20 @@
+# Ignorar node_modules para evitar copias innecesarias y reducir el tamaño de la imagen
+node_modules
+
+# Ignorar archivos de log
+logs
+*.log
+
+# Ignorar archivos de configuración local
+.env
+.env.local
+
+# Ignorar archivos de control de versiones
+.git
+.gitignore
+
+# Ignorar archivos temporales de desarrollo
+npm-debug.log
+yarn-error.log
+*.swp
+*.swo

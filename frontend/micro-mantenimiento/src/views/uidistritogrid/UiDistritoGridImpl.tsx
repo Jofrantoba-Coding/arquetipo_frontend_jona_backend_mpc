@@ -1,3 +1,4 @@
+import React from "react";
 import { getDistritos } from "../../services/api-mantenimientos/distrito";
 import UiDistritoGrid from "./UiDistritoGrid";
 import { UiDistritoGridProps } from "./UiDistritoGridProps";

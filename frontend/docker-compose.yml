@@ -1,0 +1,94 @@
+# docker-compose.yml
+services:
+  shared:
+    build:
+      context: ./shared
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005"
+    env_file:
+      - ./shared/.env
+    networks:
+      - microfrontends-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3005 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  micro-home:
+    build:
+      context: ./micro-home
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./micro-home/.env
+    depends_on:
+      - shared
+    networks:
+      - microfrontends-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3001 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  micro-home-sesion:
+    build:
+      context: ./micro-home-sesion
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./micro-home-sesion/.env
+    depends_on:
+      - shared
+    networks:
+      - microfrontends-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3002 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  micro-mantenimiento:
+    build:
+      context: ./micro-mantenimiento
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    env_file:
+      - ./micro-mantenimiento/.env
+    depends_on:
+      - shared
+    networks:
+      - microfrontends-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3003 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  container:
+    build:
+      context: ./container
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - shared
+      - micro-home
+      - micro-home-sesion
+      - micro-mantenimiento
+    networks:
+      - microfrontends-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  microfrontends-network:
+    driver: bridge

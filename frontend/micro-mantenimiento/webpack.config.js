@@ -4,22 +4,19 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack'); // Para manejar variables de entorno
 
 const configs = {
-  appName: "remote",
+  appName: "microMantenimiento",
   appFileName: "remoteEntry.js",
   development: {
     PUBLIC_PATH: "http://localhost:3001/",
-    CONTAINER_PATH: "container@http://localhost:3000/remoteEntry.js",
     PORT: 3001,
   },
   production: {
     PUBLIC_PATH: "http://your.production.domain/",
-    CONTAINER_PATH: "container@http://your.production.domain/remoteEntry.js",
     PORT: 3001,
   },
 };
 
 const deps = require("./package.json").dependencies;
-const devDeps = require("./package.json").devDependencies;
 
 module.exports = (env, argv) => {
   const config = configs[argv.mode] || configs.development;
@@ -78,11 +75,8 @@ module.exports = (env, argv) => {
       new ModuleFederationPlugin({
         name: configs.appName,
         filename: configs.appFileName,
-        remotes: {
-          container: config.CONTAINER_PATH,
-        },
         exposes: {
-          //"./TestPage": "./src/pages/test/index.tsx",
+          "./UiDistrito": "./src/views/uidistritomant/UiDistritoMantImpl.tsx",
         },
         shared: {
           ...deps,

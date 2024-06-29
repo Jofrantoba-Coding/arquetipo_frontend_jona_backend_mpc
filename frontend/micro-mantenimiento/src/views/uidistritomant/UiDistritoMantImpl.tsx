@@ -1,3 +1,4 @@
+import React from "react";
 import { getDepartamentosAll } from "../../services/api-mantenimientos/departamento";
 import { createDistrito, deleteDistrito, updateDistrito } from "../../services/api-mantenimientos/distrito";
 import { getProvinciaByIdDepartamento } from "../../services/api-mantenimientos/provincia";
