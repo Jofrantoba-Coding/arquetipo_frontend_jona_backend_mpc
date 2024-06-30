@@ -1,0 +1,114 @@
+/* UiButton.css */
+.button {
+    color: white;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    padding: 0.625rem 1.25rem;
+    text-align: center;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s, outline 0.3s;
+}
+
+.button-blue {
+    background-color: #1D4ED8;
+}
+
+.button-blue:hover {
+    background-color: #1E40AF;
+}
+
+.button-blue:focus {
+    outline: 2px solid #93C5FD;
+}
+
+.button-alternative {
+    color: #1F2937;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+}
+
+.button-alternative:hover {
+    background-color: #F3F4F6;
+    color: #1D4ED8;
+}
+
+.button-alternative:focus {
+    outline: 2px solid #F3F4F6;
+}
+
+.button-dark {
+    background-color: #1F2937;
+}
+
+.button-dark:hover {
+    background-color: #111827;
+}
+
+.button-dark:focus {
+    outline: 2px solid #D1D5DB;
+}
+
+.button-light {
+    color: #1F2937;
+    background-color: #FFFFFF;
+    border: 1px solid #D1D5DB;
+}
+
+.button-light:hover {
+    background-color: #F3F4F6;
+}
+
+.button-light:focus {
+    outline: 2px solid #F3F4F6;
+}
+
+.button-green {
+    background-color: #047857;
+}
+
+.button-green:hover {
+    background-color: #065F46;
+}
+
+.button-green:focus {
+    outline: 2px solid #86EFAC;
+}
+
+.button-red {
+    background-color: #B91C1C;
+}
+
+.button-red:hover {
+    background-color: #991B1B;
+}
+
+.button-red:focus {
+    outline: 2px solid #FCA5A5;
+}
+
+.button-yellow {
+    background-color: #F59E0B;
+}
+
+.button-yellow:hover {
+    background-color: #D97706;
+}
+
+.button-yellow:focus {
+    outline: 2px solid #FDE68A;
+}
+
+.button-purple {
+    background-color: #6D28D9;
+}
+
+.button-purple:hover {
+    background-color: #5B21B6;
+}
+
+.button-purple:focus {
+    outline: 2px solid #C4B5FD;
+}

@@ -1,0 +1,50 @@
+/* UiNotFound */
+.section {
+    background-color: white;
+}
+
+.container {
+    padding: 2rem 1rem;
+    margin: 0 auto;
+    max-width: 1280px;
+}
+
+.container-lg-padding {
+    padding: 4rem 1.5rem;
+}
+
+.inner-container {
+    margin: 0 auto;
+    max-width: 720px;
+    text-align: center;
+}
+
+.title {
+    margin-bottom: 1rem;
+    font-size: 4.5rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: #dd3333;
+}
+
+.title-lg {
+    font-size: 7rem;
+}
+
+.subtitle {
+    margin-bottom: 1rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #26292e;
+}
+
+.subtitle-lg {
+    font-size: 2.25rem;
+}
+
+.description {
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    font-weight: 300;
+    color: #6b7280;
+}

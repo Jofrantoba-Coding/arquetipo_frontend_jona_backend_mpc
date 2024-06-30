@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import UiButton from '../uibutton/UiButton';
-import '../../resources/css/index.css';
+import '../../resources/css/UiNotFound.css'
 
 export class UiNotFound extends Component {
   render() {
     return (
-        <section className="bg-white">
-            <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-                <div className="mx-auto max-w-screen-md text-center">
-                    <h1 className="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-[#dd3333]">404</h1>
-                    <p className="mb-4 text-3xl tracking-tight font-bold text-[#26292e] md:text-4xl">Lo sentimos. La página que buscas no existe.</p>
-                    <p className="mb-4 text-lg font-light text-gray-500">Puede que hayas escrito mal la dirección, que la hayan cambiado o eliminado.</p>
-                    <UiButton
-                        type='link'
-                        href='/'
-                        text={'Regresar al Home'}
-                    />
-                </div>   
-            </div>
-        </section>
+        <section className="section">
+        <div className="container container-lg-padding">
+            <div className="inner-container">
+                <h1 className="title title-lg">404</h1>
+                <p className="subtitle subtitle-lg">Lo sentimos. La página que buscas no existe.</p>
+                <p className="description">Puede que hayas escrito mal la dirección, que la hayan cambiado o eliminado.</p>
+                <UiButton
+                    type='link'
+                    href='/'
+                    text={'Regresar al Home'}
+                />
+            </div>   
+        </div>
+    </section>
     );
   }
 }
