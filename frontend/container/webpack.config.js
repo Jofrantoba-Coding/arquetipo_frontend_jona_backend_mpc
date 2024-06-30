@@ -11,6 +11,7 @@ const configs = {
     CONTAINER_PATH: "container@http://localhost:3000/remoteEntry.js",
     MICRO_HOME_PATH: "microHome@http://localhost:3001/remoteEntry.js",
     MICRO_HOME_SESION_PATH: "microHomeSesion@http://localhost:3002/remoteEntry.js",
+    SHARED_PATH: "shared@http://localhost:3005/remoteEntry.js",
     PORT: 3000,
   },
   production: {
@@ -18,6 +19,7 @@ const configs = {
     CONTAINER_PATH: "container@http://your.production.domain/remoteEntry.js",
     MICRO_HOME_PATH: "microHome@http://your.production.domain/remoteEntry.js",
     MICRO_HOME_SESION_PATH: "microHomeSesion@http://your.production.domain/remoteEntry.js",
+    SHARED_PATH: "shared@http://your.production.domain/remoteEntry.js",
     PORT: 3000,
   },
 };
@@ -80,6 +82,7 @@ module.exports = (env, argv) => {
         remotes: {
           microHome: config.MICRO_HOME_PATH,
           microHomeSesion: config.MICRO_HOME_SESION_PATH,
+          shared: config.SHARED_PATH,
         },
         shared: {
           ...deps,

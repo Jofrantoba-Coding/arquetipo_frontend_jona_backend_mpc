@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UiButton from '../uibutton/UiButton';
+import '../../resources/css/index.css';
 
 export class UiNotFound extends Component {
   render() {

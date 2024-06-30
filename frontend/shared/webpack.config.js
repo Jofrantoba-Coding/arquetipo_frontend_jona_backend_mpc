@@ -4,15 +4,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack'); // Para manejar variables de entorno
 
 const configs = {
-  appName: "microMantenimiento",
+  appName: "shared",
   appFileName: "remoteEntry.js",
   development: {
-    PUBLIC_PATH: "http://localhost:3001/",
-    PORT: 3001,
+    PUBLIC_PATH: "http://localhost:3005/",
+    PORT: 3005,
   },
   production: {
     PUBLIC_PATH: "http://your.production.domain/",
-    PORT: 3001,
+    PORT: 3005,
   },
 };
 
@@ -76,7 +76,10 @@ module.exports = (env, argv) => {
         name: configs.appName,
         filename: configs.appFileName,
         exposes: {
-          "./UiDistrito": "./src/views/uidistritomant/UiDistritoMantImpl.tsx",
+          "./UiButton": "./src/components/uibutton/UiButton.tsx",
+          "./UiIcon": "./src/components/uiicon/UiIcon.tsx",
+          "./UiNotFound": "./src/components/uinotfound/UiNotFound.tsx",
+          "./UiToast": "./src/components/uitoast/UiToast.tsx"
         },
         shared: {
           ...deps,

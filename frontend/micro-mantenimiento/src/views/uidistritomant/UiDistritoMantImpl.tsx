@@ -2,7 +2,7 @@ import React from "react";
 import { getDepartamentosAll } from "../../services/api-mantenimientos/departamento";
 import { createDistrito, deleteDistrito, updateDistrito } from "../../services/api-mantenimientos/distrito";
 import { getProvinciaByIdDepartamento } from "../../services/api-mantenimientos/provincia";
-import { showToast } from "../../uiutils/uitoast/UiToast";
+//import { showToast } from "../../uiutils/uitoast/UiToast";
 import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantDelete } from "./InterUiDistritoMant";
 import UiDistritoMant from "./UiDistritoMant";
 import { UiDistritoMantProps } from "./UiDistritoMantProps";
@@ -37,14 +37,14 @@ export class UiDistritoMantImpl extends UiDistritoMant {
 
   handleCreate = async (data: InterUiDistritoMantCreate) => {
     const dataCreate = await createDistrito(data);
-    showToast({ type: 'success', message: 'Distrito creado' })
+    //showToast({ type: 'success', message: 'Distrito creado' })
     console.log('dataCreate', dataCreate)
     this.props.onClose();
   }
 
   handleUpdate = async (data: InterUiDistritoMantEdit) => {
     const dataUpdate = await updateDistrito(data);
-    showToast({ type: 'success', message: 'Distrito actualizado' })
+    //showToast({ type: 'success', message: 'Distrito actualizado' })
     console.log('dataUpdate', dataUpdate)
     this.props.onClose();
   }

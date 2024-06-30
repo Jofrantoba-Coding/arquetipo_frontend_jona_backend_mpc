@@ -8,10 +8,12 @@ const configs = {
   appFileName: "remoteEntry.js",
   development: {
     PUBLIC_PATH: "http://localhost:3002/",
+    SHARED_PATH: "shared@http://localhost:3005/remoteEntry.js",
     PORT: 3002,
   },
   production: {
     PUBLIC_PATH: "http://your.production.domain/",
+    SHARED_PATH: "shared@http://your.production.domain/remoteEntry.js",
     PORT: 3002,
   },
 };
@@ -77,6 +79,9 @@ module.exports = (env, argv) => {
         filename: configs.appFileName,
         exposes: {
           "./UiHomeSesion": "./src/views/uisesionhome/UiSesionHome.tsx",
+        },
+        remotes: {
+          shared: config.SHARED_PATH,
         },
         shared: {
           ...deps,

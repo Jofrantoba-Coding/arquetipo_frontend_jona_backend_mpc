@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { UiIniciarSesionProps, validationSchema } from './UiIniciarSesionProps';
 import { UiIniciarSesionState } from './UiIniciarSesionState';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import UiButton from '../../uiutils/uibutton/UiButton';
+import UiButton from 'shared/UiButton';
 
 export class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSesionState> {
   state: UiIniciarSesionState = {

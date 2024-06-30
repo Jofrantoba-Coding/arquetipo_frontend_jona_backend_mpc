@@ -4,8 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { UiDistritoMantState } from './UiDistritoMantState';
 import { UiDistritoMantProps, validationUpdateSchema, validationCreateSchema } from './UiDistritoMantProps';
 import { InterUiDistritoMantCreate, InterUiDistritoMantDelete, InterUiDistritoMantEdit, InterUiDistritoMantTitleCrud } from './InterUiDistritoMant';
-import UiButton from '../../uiutils/uibutton/UiButton';
-import UiIcon from '../../uiutils/uiicon/UiIcon';
+import UiButton from 'shared/UiButton';
+import UiIcon from 'shared/UiIcon';
 
 class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState> {
     constructor(props: UiDistritoMantProps) {

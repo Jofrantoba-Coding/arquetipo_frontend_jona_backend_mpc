@@ -3,8 +3,8 @@ import { Component } from "react";
 import { UiDistritoGridState } from "./UiDistritoGridState";
 import { InterUiDistritoGrid } from "./InterUiDistritoGrid";
 import { UiDistritoGridProps } from "./UiDistritoGridProps";
-import UiIcon from "../../uiutils/uiicon/UiIcon";
-import UiButton from "../../uiutils/uibutton/UiButton";
+import UiIcon from "shared/UiIcon";
+import UiButton from "shared/UiButton";
 import { UiDistritoMantImpl } from "../uidistritomant/UiDistritoMantImpl";
 
 class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState> {
