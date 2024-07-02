@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { UiTabPanelState } from './UiTabPanelState';
 import { UiTabPanelProps } from './UiTabPanelProps';
 import UiIcon from 'shared/UiIcon';
+import '../../resources/css/UiTabPanel.css';
 
 class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
   constructor(props: UiTabPanelProps) {
@@ -56,21 +57,20 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
   }
 
   render() {
-    console.log('entra tabs');
     const { activeTab, tabs } = this.state;
     return (
       <div className="tab-panel">
-        <div className="border-b border-gray-200">
-          <ul className="flex px-4 flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
+        <div className="tab-title">
+          <ul className="tab-title-list">
             {tabs.map(tab => (
               <li className="tab-item" key={tab.id}>
                   <button
                     onClick={() => this.handleTabClick(tab.id)}
-                    className={`relative inline-flex items-center justify-center py-4 px-8 border-b-2 rounded-t-xl group ${
-                    activeTab === tab.id ? 'text-white bg-[#DD3333] border-[#DD3333]' : 'border-transparent hover:text-gray-600 hover:border-gray-300'
+                    className={`tab-button ${
+                    activeTab === tab.id ? 'active' : ''
                   }`}
                   >
-                    <UiIcon name={tab.icon} className="mr-2" />
+                    <UiIcon name={tab.icon} className="icon" />
                     {tab.label}
                     {activeTab === tab.id && (
                     <button
@@ -78,7 +78,7 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
                         this.handleTabClose(tab.id)                
                       }}
                       type='button'
-                      className="ml-2 absolute top-[-5px] right-[-5px] text-2xl rounded-full border-2 border-red-600 cursor-pointer"
+                      className="tab-close"
                     >
                       <UiIcon
                         name="CloseCircle"
@@ -92,7 +92,7 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
             ))}
           </ul>
         </div>
-        <div className="p-4">
+        <div className="tab-content">
           {tabs.find(tab => tab.id === activeTab)?.content}
         </div>
       </div>

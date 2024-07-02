@@ -1,18 +1,19 @@
 import React from 'react';
 import { MenuProps, MenuItem } from './InterUiMenuBar';
+import '../../resources/css/UiMenuBar.css'
 
 const UiMenuBar: React.FC<MenuProps> = ({ data, callback }) => {
     const renderMenu = (items: MenuItem[]) => {
         return (items.map((item) => (
-            <li key={item.id} className="relative group">
+            <li key={item.id} className="nav-item">
                 <button 
                     onClick={() => callback(item.id)} 
-                    className="flex items-center p-4 hover:bg-[#dd3333] w-full hover:text-white"
+                    className="nav-button"
                 >
                     {item.descripcion}
                 </button>
                 {item.submenus && item.submenus.length > 0 && (
-                    <ul className="absolute min-w-[180px] left-0 mt-0 hidden group-hover:block bg-white shadow-lg border">
+                    <ul className="nav-submenu">
                         {renderMenu(item.submenus)}
                     </ul>
                 )}
@@ -22,8 +23,8 @@ const UiMenuBar: React.FC<MenuProps> = ({ data, callback }) => {
     };
 
     return (
-        <nav className="relative bg-[#ededed] z-10 mb-[20px]">
-            <ul className="flex space-x-4">
+        <nav className="nav">
+            <ul className="nav-list">
                 {renderMenu(data)}
             </ul>
         </nav>

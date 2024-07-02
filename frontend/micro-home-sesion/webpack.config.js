@@ -9,11 +9,13 @@ const configs = {
   development: {
     PUBLIC_PATH: "http://localhost:3002/",
     SHARED_PATH: "shared@http://localhost:3005/remoteEntry.js",
+    MICRO_MANTENIMIENTO_PATH: "microMantenimiento@http://localhost:3003/remoteEntry.js",
     PORT: 3002,
   },
   production: {
     PUBLIC_PATH: "http://your.production.domain/",
     SHARED_PATH: "shared@http://your.production.domain/remoteEntry.js",
+    MICRO_MANTENIMIENTO_PATH: "microMantenimiento@http://your.production.domain/remoteEntry.js",
     PORT: 3002,
   },
 };
@@ -33,10 +35,17 @@ module.exports = (env, argv) => {
     },
 
     devServer: {
-      hot: true,
+      hot: false,
       port: config.PORT,
       historyApiFallback: true,
       allowedHosts: "all",
+      client: {
+        overlay: {
+          errors: true,
+          warnings: false,
+          runtimeErrors: true,
+        },
+      },
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
@@ -82,6 +91,7 @@ module.exports = (env, argv) => {
         },
         remotes: {
           shared: config.SHARED_PATH,
+          microMantenimiento: config.MICRO_MANTENIMIENTO_PATH
         },
         shared: {
           ...deps,

@@ -4,13 +4,14 @@ import BorderLayout from '../../uilayouts/BorderLayout';
 import UiTitleBar from '../../uiutils/uititlebar/UiTitleBar';
 import Footer from '../../uiutils/uifooterbar/UiFooterBar';
 import UiMenuBar from '../../uiutils/uimenubar/UiMenuBar';
+import UiTabPanel from '../../uiutils/uitabpanel/UiTabPanel';
 import { getMenu } from '../../services/api-mantenimientos/menu';
 import { getCurrentProfile } from '../../services/api-mantenimientos/perfil';
-import UiTabPanel from '../../uiutils/uitabpanel/UiTabPanel';
 import { MENU_TABS } from '../../constants/tabs';
 import { UiSesionHomeProps } from './UiSesionHomeProps';
 import { UiSesionHomeState } from './UiSesionHomeState';
 import { Tab } from '../../uiutils/uitabpanel/UiTabPanelState';
+import '../../resources/css/index.css'
 
 class UiSesionHome extends Component<UiSesionHomeProps, UiSesionHomeState> {
 
