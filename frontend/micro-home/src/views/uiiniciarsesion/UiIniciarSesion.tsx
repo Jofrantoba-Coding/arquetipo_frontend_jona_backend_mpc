@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { UiIniciarSesionProps, validationSchema } from './UiIniciarSesionProps';
 import { UiIniciarSesionState } from './UiIniciarSesionState';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import UiButton from 'shared/UiButton';
+import { UiButton } from 'shared';
+import '../../resources/css/UiIniciarSesion.css';
 
-export class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSesionState> {
+class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSesionState> {
   state: UiIniciarSesionState = {
     email: '',
     password: '',
@@ -33,9 +34,8 @@ export class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSe
   };
 
   render() {
-
     return (
-      <div className="max-w-sm mx-auto p-4">
+      <div className="container">
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
@@ -44,30 +44,30 @@ export class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSe
             setSubmitting(false);
           }}
         >
-          <Form className="space-y-2 w-full">
-            <div className="grid w-full items-center">
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Correo Electrónico</label>
+          <Form className="form">
+            <div className="form-group">
+              <label htmlFor="email" className="label">Correo Electrónico</label>
               <Field
                 name="email"
                 type="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="input"
               />
-              <ErrorMessage name="email" component="div" className="text-[#DD3333] text-sm" />
+              <ErrorMessage name="email" component="div" className="error-message" />
             </div>
-            <div className="grid w-full items-center">
-              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Contraseña</label>
+            <div className="form-group">
+              <label htmlFor="password" className="label">Contraseña</label>
               <Field
                 name="password"
                 type="password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="input"
               />
-              <ErrorMessage name="password" component="div" className="text-[#DD3333] text-sm" />
+              <ErrorMessage name="password" component="div" className="error-message" />
             </div>
-            <div className="w-full pt-[20px]">
-              <UiButton 
-                type={'submit'}
-                text={'Iniciar Sesión'}
-              />
+            <div className="button-container">
+                <UiButton 
+                  type={'submit'}
+                  text={'Iniciar Sesión'}
+                />
             </div>
           </Form>
         </Formik>
@@ -75,3 +75,5 @@ export class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSe
     );
   }
 }
+
+export default UiIniciarSesion;

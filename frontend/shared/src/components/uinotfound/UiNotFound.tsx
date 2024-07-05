@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import UiButton from '../uibutton/UiButton';
 import '../../resources/css/UiNotFound.css'
 
-export class UiNotFound extends Component {
+class UiNotFound extends Component {
   render() {
     return (
         <section className="section">
@@ -23,3 +23,4 @@ export class UiNotFound extends Component {
   }
 }
 
+export default UiNotFound;

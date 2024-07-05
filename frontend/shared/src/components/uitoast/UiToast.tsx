@@ -1,7 +1,7 @@
 import { ToastOptions, toast } from 'react-hot-toast';
 import { InterUiToast } from './InterUiToast';
 
-export const showToast = ({ type, message, options }: InterUiToast) => {
+const showToast = ({ type, message, options }: InterUiToast) => {
   const defaultOptions: ToastOptions = {
     position: 'bottom-right',
     ...options
@@ -22,3 +22,5 @@ export const showToast = ({ type, message, options }: InterUiToast) => {
       break;
   }
 };
+
+export default showToast;

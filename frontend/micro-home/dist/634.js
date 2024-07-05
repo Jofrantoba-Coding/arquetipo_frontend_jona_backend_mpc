@@ -1,1 +1,1 @@
-(self.webpackChunkrect_app=self.webpackChunkrect_app||[]).push([[634],{2634:()=>{}}]);
+(self.webpackChunkmicro_home=self.webpackChunkmicro_home||[]).push([[634],{2634:()=>{}}]);

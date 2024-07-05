@@ -8,12 +8,10 @@ const configs = {
   appFileName: "remoteEntry.js",
   development: {
     PUBLIC_PATH: "http://localhost:3001/",
-    SHARED_PATH: "shared@http://localhost:3005/remoteEntry.js",
     PORT: 3001,
   },
   production: {
     PUBLIC_PATH: "http://your.production.domain/",
-    SHARED_PATH: "shared@http://your.production.domain/remoteEntry.js",
     PORT: 3001,
   },
 };
@@ -33,10 +31,17 @@ module.exports = (env, argv) => {
     },
 
     devServer: {
-      hot: true,
+      hot: false,
       port: config.PORT,
       historyApiFallback: true,
       allowedHosts: "all",
+      client: {
+        overlay: {
+          errors: true,
+          warnings: false,
+          runtimeErrors: true,
+        },
+      },
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
@@ -54,7 +59,11 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(css|s[ac]ss)$/i,
-          use: ["style-loader", "css-loader", "postcss-loader"],
+          use: [
+            "style-loader", 
+            "css-loader", 
+            "postcss-loader"
+          ],
         },
         {
           test: /\.(ts|tsx|js|jsx)$/,
@@ -79,9 +88,6 @@ module.exports = (env, argv) => {
         filename: configs.appFileName,
         exposes: {
           "./UiHome": "./src/views/uihome/UiHome.tsx",
-        },
-        remotes: {
-          shared: config.SHARED_PATH,
         },
         shared: {
           ...deps,

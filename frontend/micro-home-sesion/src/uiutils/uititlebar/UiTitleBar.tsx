@@ -1,9 +1,9 @@
 import React from 'react';
 import Logo from '../../resources/images/logo-minjus.jpg'
 import { getToken } from '../../methods/storage';
-import UiButton from 'shared/UiButton';
 import { logout } from '../../services/api-auth/auth';
 import { TitleBarProps } from './InterUiTitleBar';
+import { UiButton } from 'shared';
 import '../../resources/css/UiTitleBar.css'
 
 const UiTitleBar: React.FC<TitleBarProps> = ({ data }) => {
@@ -32,11 +32,11 @@ const UiTitleBar: React.FC<TitleBarProps> = ({ data }) => {
                 </div>
               )}
               <UiButton
-                type={'button'}
-                text={''}
-                icon={'Power'}
-                callback={ handleLogout } 
-              />
+                  type={'button'}
+                  text={''}
+                  icon={'Power'}
+                  callback={ handleLogout } 
+                />
             </div>
           </div>
       </header>

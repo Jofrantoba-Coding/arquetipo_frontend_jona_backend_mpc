@@ -1,23 +1,18 @@
-# micro-home/Dockerfile
-FROM node:18-alpine
-
-# Establecer el directorio de trabajo
+# Base
+FROM node:18-alpine AS base
 WORKDIR /app
-
-# Copiar package.json y package-lock.json
 COPY package*.json ./
-
-# Instalar dependencias
 RUN npm install
-
-# Copiar el código fuente
 COPY . .
 
-# Construir la aplicación
+# Development
+FROM base AS development
+ENV NODE_ENV=development
+CMD ["npm", "run", "start:live"]
+
+# Production
+FROM base AS production
+ENV NODE_ENV=production
 RUN npm run build
-
-# Exponer el puerto para el servidor
 EXPOSE 3000
-
-# Comando por defecto para ejecutar la aplicación
 CMD ["npm", "start"]

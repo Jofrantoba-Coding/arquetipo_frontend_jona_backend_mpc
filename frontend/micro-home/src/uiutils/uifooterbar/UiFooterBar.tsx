@@ -1,10 +1,11 @@
 import React from 'react';
+import '../../resources/css/UiFooterBar.css'
 
 const UiFooterBar: React.FC = () => {
   return (
-    <footer className="footer bg-[#272727] text-[#777777] leading-[1.8]">
-      <div className="container py-[15px] px-[30px]">
-        <p className="text-[14px]">&copy; 2023 Ministerio de Justicia y Derechos Humanos</p>
+    <footer className="footer">
+      <div className="container">
+        <p className="copy">&copy; 2023 Ministerio de Justicia y Derechos Humanos</p>
       </div>
     </footer>
   );
