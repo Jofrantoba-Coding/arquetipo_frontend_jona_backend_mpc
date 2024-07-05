@@ -3,7 +3,7 @@ import { getDistritos } from "../../services/api-mantenimientos/distrito";
 import UiDistritoGrid from "./UiDistritoGrid";
 import { UiDistritoGridProps } from "./UiDistritoGridProps";
 
-export class UiDistritoGridImpl extends UiDistritoGrid {
+class UiDistritoGridImpl extends UiDistritoGrid {
     constructor(props: UiDistritoGridProps) {
         super(props);
         this.loadingData = this.loadingData.bind(this);
@@ -47,3 +47,5 @@ export class UiDistritoGridImpl extends UiDistritoGrid {
         );
       }
 }
+
+export default UiDistritoGridImpl;

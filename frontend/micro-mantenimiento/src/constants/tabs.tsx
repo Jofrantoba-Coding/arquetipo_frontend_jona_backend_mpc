@@ -1,6 +1,6 @@
 import React from "react";
 import { Tab } from "../uiutils/uitabpanel/UiTabPanelState";
-import { UiDistritoGridImpl } from "../views/uidistritogrid/UiDistritoGridImpl";
+import UiDistritoGridImpl from "../views/uidistritogrid/UiDistritoGridImpl";
 
 export const MENU_TABS: Tab[] = [
     {

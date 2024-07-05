@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../../resources/images/logo-minjus.jpg'
 import { getToken } from '../../methods/storage';
-import UiButton from '../uibutton/UiButton';
+import { UiButton } from 'shared';
 import { logout } from '../../services/api-auth/auth';
 import { TitleBarProps } from './InterUiTitleBar';
 

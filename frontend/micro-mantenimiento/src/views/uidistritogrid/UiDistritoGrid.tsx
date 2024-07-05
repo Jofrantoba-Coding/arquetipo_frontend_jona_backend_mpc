@@ -3,9 +3,10 @@ import { Component } from "react";
 import { UiDistritoGridState } from "./UiDistritoGridState";
 import { InterUiDistritoGrid } from "./InterUiDistritoGrid";
 import { UiDistritoGridProps } from "./UiDistritoGridProps";
-import UiIcon from "shared/UiIcon";
-import UiButton from "shared/UiButton";
-import { UiDistritoMantImpl } from "../uidistritomant/UiDistritoMantImpl";
+import UiDistritoMantImpl from "../uidistritomant/UiDistritoMantImpl";
+import { UiButton, UiIcon } from 'shared';
+
+import '../../resources/css/UiDistritoGrid.css';
 
 class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState> {
     constructor(props: UiDistritoGridProps) {
@@ -83,9 +84,9 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
         const { distritos } = this.props;
         const { modalOpen, modalMode, selectedDistrito, isLoading } = this.state;
         return (
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white">
-                    <div className="flex gap-2">
+            <div className="relative-overflow-x-auto shadow-md-sm-rounded-lg">
+                <div className="flex-container md-flex-row space-y-4-md-space-y-0">
+                    <div className="flex-gap-2">
                         <UiButton 
                             type="button" 
                             text={'Agregar'} 
@@ -100,63 +101,62 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
                             icon="Export" 
                         />
                     </div>
-                    <label htmlFor="table-search" className="sr-only">Buscar</label>
                     <div className="relative">
-                        <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <div className="search-icon-container">
                             <UiIcon name="Search" />
                         </div>
                         <input
                             type="text"
                             id="table-search-users"
-                            className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                            className="search-input"
                             placeholder="Buscar"
                         />
                     </div>
                 </div>
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead className="text-xs text-white uppercase bg-[#DD3333]">
+                <table className="table">
+                    <thead className="table-head">
                         <tr>
-                            <th scope="col" className="px-6 py-3">Descripción</th>
-                            <th scope="col" className="px-6 py-3">Código Distrito</th>
-                            <th scope="col" className="px-6 py-3">Código Provincia</th>
-                            <th scope="col" className="px-6 py-3">Código Departamento</th>
-                            <th scope="col" className="px-6 py-3">Provincia</th>
-                            <th scope="col" className="px-6 py-3">Departamento</th>
-                            <th scope="col" className="px-6 py-3">Acción</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Código Distrito</th>
+                            <th scope="col">Código Provincia</th>
+                            <th scope="col">Código Departamento</th>
+                            <th scope="col">Provincia</th>
+                            <th scope="col">Departamento</th>
+                            <th scope="col">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         {distritos?.map((item, index) => (
                             <tr
                                 key={`distrito-${item.id}`}
-                                className={`border-b hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+                                className={`table-row ${index % 2 === 0 ? 'table-row-white' : 'table-row-gray'}`}
                             >
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <th scope="row" className="table-cell">
                                     {item.descripcion}
                                 </th>
-                                <td className="px-6 py-4">{item.codigodistrito}</td>
-                                <td className="px-6 py-4">{item.codigoprovincia}</td>
-                                <td className="px-6 py-4">{item.codigodepartamento}</td>
-                                <td className="px-6 py-4">{item.descripcionprovincia}</td>
-                                <td className="px-6 py-4">{item.descripciondepartamento}</td>
-                                <td className="px-6 py-4">
+                                <td className="table-cell">{item.codigodistrito}</td>
+                                <td className="table-cell">{item.codigoprovincia}</td>
+                                <td className="table-cell">{item.codigodepartamento}</td>
+                                <td className="table-cell">{item.descripcionprovincia}</td>
+                                <td className="table-cell">{item.descripciondepartamento}</td>
+                                <td className="table-cell">
                                     <button 
                                         type="button" 
-                                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2"
+                                        className="table-action-button"
                                         onClick={() => this.viewModal(item)}
                                     >
                                         <UiIcon name="View" />
                                     </button>
                                     <button
                                         type="button"
-                                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2"
+                                        className="table-action-button"
                                         onClick={() => this.editModal(item)}
                                     >
                                         <UiIcon name="Edit" />
                                     </button>
                                     <button
                                         type="button"
-                                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-3 py-2 text-xs font-medium rounded-lg me-2 mb-2"
+                                        className="table-action-button"
                                         onClick={() => this.deleteModal(item)}
                                     >
                                         <UiIcon name="Delete" />
@@ -177,7 +177,7 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
                 )}
                 
                 {isLoading && (
-                    <div className="text-center p-4">
+                    <div className="text-center">
                         <span>Loading...</span>
                     </div>
                 )}

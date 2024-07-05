@@ -12,7 +12,7 @@ import { UiSesionHomeProps } from './UiSesionHomeProps';
 import { UiSesionHomeState } from './UiSesionHomeState';
 import { Tab } from '../../uiutils/uitabpanel/UiTabPanelState';
 
-export class UiSesionHome extends Component<UiSesionHomeProps, UiSesionHomeState> {
+class UiSesionHome extends Component<UiSesionHomeProps, UiSesionHomeState> {
 
   constructor(props: UiSesionHomeProps) {
     super(props);

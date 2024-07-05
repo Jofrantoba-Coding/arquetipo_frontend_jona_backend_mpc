@@ -1,9 +1,9 @@
 import React from 'react';
-import { UiIniciarSesion } from './UiIniciarSesion';
+import UiIniciarSesion from './UiIniciarSesion';
 import { UiIniciarSesionProps } from './UiIniciarSesionProps';
 import { getLogin } from '../../services/api-auth/auth';
 
-export class UiIniciarSesionImpl extends UiIniciarSesion {
+class UiIniciarSesionImpl extends UiIniciarSesion {
 
   constructor(props: UiIniciarSesionProps) {
     super(props);
@@ -66,3 +66,5 @@ export class UiIniciarSesionImpl extends UiIniciarSesion {
   };
 
 }
+
+export default UiIniciarSesionImpl;

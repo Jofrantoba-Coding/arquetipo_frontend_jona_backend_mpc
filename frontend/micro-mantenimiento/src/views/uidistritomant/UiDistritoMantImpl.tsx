@@ -7,7 +7,7 @@ import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMant
 import UiDistritoMant from "./UiDistritoMant";
 import { UiDistritoMantProps } from "./UiDistritoMantProps";
 
-export class UiDistritoMantImpl extends UiDistritoMant {
+class UiDistritoMantImpl extends UiDistritoMant {
   constructor(props: UiDistritoMantProps) {
     super(props);
     this.loadingData = this.loadingData.bind(this);
@@ -77,3 +77,5 @@ export class UiDistritoMantImpl extends UiDistritoMant {
     );
   }
 }
+
+export default UiDistritoMantImpl;

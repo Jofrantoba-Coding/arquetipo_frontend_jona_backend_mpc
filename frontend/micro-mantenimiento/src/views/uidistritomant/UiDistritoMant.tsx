@@ -4,8 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { UiDistritoMantState } from './UiDistritoMantState';
 import { UiDistritoMantProps, validationUpdateSchema, validationCreateSchema } from './UiDistritoMantProps';
 import { InterUiDistritoMantCreate, InterUiDistritoMantDelete, InterUiDistritoMantEdit, InterUiDistritoMantTitleCrud } from './InterUiDistritoMant';
-import UiButton from 'shared/UiButton';
-import UiIcon from 'shared/UiIcon';
+import { UiButton, UiIcon } from 'shared';
+import '../../resources/css/UiDistritoMant.css';
 
 class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState> {
     constructor(props: UiDistritoMantProps) {
@@ -55,7 +55,6 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
             this.props.handleDelete?.(data as InterUiDistritoMantDelete)
         }
     };
-    
 
     handleChangeDepartamento = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue = event.target.value;
@@ -70,55 +69,46 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
         return (
             <div
                 id="crud-modal"
-                className="fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full max-h-full bg-gray-900 bg-opacity-50 flex"
+                className="crud-modal"
                 onClick={onClose}
             >
                 <div
-                    className="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow"
+                    className="crud-modal-content"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <div className="flex items-center justify-between p-4 border-b rounded-t">
-                        <h3 className="text-lg font-semibold text-gray-900">
+                    <div className="crud-modal-header">
+                        <h3 className="crud-modal-title">
                             {this.getTitle(mode)}
                         </h3>
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                            className="crud-modal-close-button"
                             onClick={onClose}
                         >
                             <UiIcon name="Close" />
-                            <span className="sr-only">Cerrar modal</span>
                         </button>
                     </div>
 
                     {mode === 'delete' ? (
-                        <div className="space-y-2 p-2">
-                            <div className="p-4 space-y-2 text-center ">
-                                <p className="text-gray-500">¿Está seguro de que desea eliminar este distrito?</p>
-                            </div>
+                        <div className="crud-modal-body">
+                            <p className="crud-modal-text">¿Está seguro de que desea eliminar este distrito?</p>
 
-                            <div className="space-y-2">
+                            <div className="crud-modal-actions">
+                                <UiButton
+                                    type={'button'}
+                                    color={'dark'}
+                                    callback={onClose}
+                                    className={'justify-center'}
+                                    text={'Cancelar'}
+                                />
 
-                                <div className="px-6 py-2">
-
-                                    <div className="grid gap-4 grid-cols-2">
-                                        <UiButton
-                                            type={'button'}
-                                            color={'dark'}
-                                            callback={onClose}
-                                            className={'justify-center'}
-                                            text={'Cancelar'}
-                                        />
-
-                                        <UiButton
-                                            type={'button'}
-                                            color={'red'}
-                                            className={'justify-center'}
-                                            callback={() => this.handleSubmit({ id: (defaultData as InterUiDistritoMantEdit).id })}
-                                            text={'Eliminar'}
-                                        />
-                                    </div>
-                                </div>
+                                <UiButton
+                                    type={'button'}
+                                    color={'red'}
+                                    className={'justify-center'}
+                                    callback={() => this.handleSubmit({ id: (defaultData as InterUiDistritoMantEdit).id })}
+                                    text={'Eliminar'}
+                                />
                             </div>
                         </div>
                     ) : (
@@ -143,17 +133,17 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                             }}
                         >
                             {({ isSubmitting }) => (
-                                <Form className="p-4 md:p-5">
-                                    <div className="grid gap-4 grid-cols-2">
+                                <Form className="crud-modal-form">
+                                    <div className="crud-modal-grid">
                                         { mode === 'create' && (
-                                            <div className="col-span-2">
-                                                <label htmlFor="departamento-id" className="block mb-2 text-sm font-medium text-gray-900">Departamento</label>
+                                            <div className="crud-modal-field">
+                                                <label htmlFor="departamento-id" className="crud-modal-label">Departamento</label>
                                                 <Field
                                                     as="select"
                                                     name="departamento.id"
                                                     id="departamento-id"
                                                     onChange={this.handleChangeDepartamento}
-                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                    className="crud-modal-input"
                                                     readOnly={!isEditable}
                                                 >
                                                     {departamentos?.map((departamento) => (
@@ -162,17 +152,17 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                                         </option>
                                                     ))}
                                                 </Field>
-                                                {isEditable && <ErrorMessage name="departamento.id" component="div" className="text-red-600 text-sm mt-1" />}
+                                                {isEditable && <ErrorMessage name="departamento.id" component="div" className="crud-modal-error-message" />}
                                             </div>
                                         )}
 
-                                        <div className="col-span-2">
-                                            <label htmlFor="provincia-id" className="block mb-2 text-sm font-medium text-gray-900">Provincia</label>
+                                        <div className="crud-modal-field">
+                                            <label htmlFor="provincia-id" className="crud-modal-label">Provincia</label>
                                             <Field
                                                 as="select"
                                                 name="provincia.id"
                                                 id="provincia-id"
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="crud-modal-input"
                                                 readOnly={!isEditable}
                                             >
                                                 {provincias?.map((provincia) => (
@@ -181,65 +171,65 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                                     </option>
                                                 ))}
                                             </Field>
-                                            {isEditable && <ErrorMessage name="provincia.id" component="div" className="text-red-600 text-sm mt-1" />}
+                                            {isEditable && <ErrorMessage name="provincia.id" component="div" className="crud-modal-error-message" />}
                                         </div>
 
                                         {mode !== 'create' && (
-                                            <div className="col-span-2 sm:col-span-1">
-                                                <label htmlFor="id" className="block mb-2 text-sm font-medium text-gray-900">ID</label>
+                                            <div className="crud-modal-field">
+                                                <label htmlFor="id" className="crud-modal-label">ID</label>
                                                 <Field
                                                     type="text"
                                                     name="id"
                                                     id="id"
-                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                    className="crud-modal-input"
                                                     readOnly={isEditable}
                                                 />
-                                                {isEditable && <ErrorMessage name="id" component="div" className="text-red-600 text-sm mt-1" />}
+                                                {isEditable && <ErrorMessage name="id" component="div" className="crud-modal-error-message" />}
                                             </div>
                                         )}
 
-                                        <div className="col-span-2 sm:col-span-1">
-                                            <label htmlFor="codigoDistrito" className="block mb-2 text-sm font-medium text-gray-900">Código Distrito</label>
+                                        <div className="crud-modal-field">
+                                            <label htmlFor="codigoDistrito" className="crud-modal-label">Código Distrito</label>
                                             <Field
                                                 type="text"
                                                 name="codigoDistrito"
                                                 id="codigoDistrito"
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="crud-modal-input"
                                                 placeholder="Escribe el código del distrito"
                                                 readOnly={!isEditable}
                                             />
-                                            {isEditable && <ErrorMessage name="codigoDistrito" component="div" className="text-red-600 text-sm mt-1" />}
+                                            {isEditable && <ErrorMessage name="codigoDistrito" component="div" className="crud-modal-error-message" />}
                                         </div>
 
-                                        <div className="col-span-2">
-                                            <label htmlFor="descripcion" className="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
+                                        <div className="crud-modal-field">
+                                            <label htmlFor="descripcion" className="crud-modal-label">Descripción</label>
                                             <Field
                                                 type="text"
                                                 name="descripcion"
                                                 id="descripcion"
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="crud-modal-input"
                                                 placeholder="Escribe la descripción"
                                                 readOnly={!isEditable}
                                             />
-                                            {isEditable && <ErrorMessage name="descripcion" component="div" className="text-red-600 text-sm mt-1" />}
+                                            {isEditable && <ErrorMessage name="descripcion" component="div" className="crud-modal-error-message" />}
                                         </div>
 
-                                        <div className="col-span-2 sm:col-span-1">
-                                            <label htmlFor="orden" className="block mb-2 text-sm font-medium text-gray-900">Orden</label>
+                                        <div className="crud-modal-field">
+                                            <label htmlFor="orden" className="crud-modal-label">Orden</label>
                                             <Field
                                                 type="number"
                                                 name="orden"
                                                 id="orden"
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="crud-modal-input"
                                                 placeholder="Escribe el orden"
                                                 readOnly={!isEditable}
                                             />
-                                            {isEditable && <ErrorMessage name="orden" component="div" className="text-red-600 text-sm mt-1" />}
+                                            {isEditable && <ErrorMessage name="orden" component="div" className="crud-modal-error-message" />}
                                         </div>
 
-                                        <div className="col-span-2 my-2 border-b"></div>
+                                        <div className="crud-modal-divider"></div>
 
-                                        <div className="col-span-2  flex justify-between">
+                                        <div className="crud-modal-actions">
                                             {(mode === 'edit' || mode === 'create') && (
                                                 <>
                                                     { isSubmitting }
