@@ -1,13 +1,11 @@
+/* React */
 import React from 'react';
-import '../resources/css/BorderLayout.css';
 
-interface BorderLayoutProps {
-  north?: React.ReactNode;
-  south?: React.ReactNode;
-  east?: React.ReactNode;
-  west?: React.ReactNode;
-  center?: React.ReactNode;
-}
+/* Interfaces */
+import { BorderLayoutProps } from './BorderLayoutProps';
+
+/* Estilos */
+import '../resources/css/BorderLayout.css';
 
 const BorderLayout: React.FC<BorderLayoutProps> = ({ north, south, east, west, center }) => {
   return (

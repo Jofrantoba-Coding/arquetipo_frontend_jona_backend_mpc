@@ -1,11 +1,16 @@
-import React from "react";
-import { Component } from "react";
+/* React */
+import React, { Component } from "react";
+
+/* Componentes */
 import { UiDistritoGridState } from "./UiDistritoGridState";
 import { InterUiDistritoGrid } from "./InterUiDistritoGrid";
 import { UiDistritoGridProps } from "./UiDistritoGridProps";
 import UiDistritoMantImpl from "../uidistritomant/UiDistritoMantImpl";
+
+/* Libreria Shared */
 import { UiButton, UiIcon } from 'shared';
 
+/* Estilos */
 import '../../resources/css/UiDistritoGrid.css';
 
 class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState> {

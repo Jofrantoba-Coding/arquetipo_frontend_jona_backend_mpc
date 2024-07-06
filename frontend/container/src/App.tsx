@@ -1,12 +1,16 @@
+/* React */
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+/* Componentes */
 import ProtectedRoute from './ProtectRouter';
 import ErrorBoundary from './ErrorBoundary';
 
-// Componentes de Fallback
+/* Componentes de Fallback */
 const FallbackLoading = () => <div>Cargando...</div>;
 const FallbackError: React.FC = () => <div>Error al cargar el microservicio. Por favor, intenta más tarde.</div>;
 
+/* Microfrontend */
 const UiHome = React.lazy(() => import('microHome/UiHome'));
 const UiHomeSesion = React.lazy(() => import('microHomeSesion/UiHomeSesion'));
 

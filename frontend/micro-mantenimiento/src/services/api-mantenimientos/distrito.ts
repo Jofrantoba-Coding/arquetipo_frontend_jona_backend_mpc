@@ -1,5 +1,10 @@
+/* Librerias Externas */
 import axios, { AxiosRequestConfig } from 'axios';
+
+/* Cookie Storage */
 import { getToken } from '../../methods/storage';
+
+/* Interfaces */
 import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantDelete } from '../../views/uidistritomant/InterUiDistritoMant';
 
 export const getDistritosAll = async () => {

@@ -1,6 +1,13 @@
+/* React */
 import React from 'react';
+
+/* Estilos */
 import { ButtonInterface } from './InterUiButton';
+
+/* Componentes */
 import UiIcon from '../uiicon/UiIcon';
+
+/* Estilos */
 import '../../resources/css/UiButton.css' 
 
 const colorClasses = {

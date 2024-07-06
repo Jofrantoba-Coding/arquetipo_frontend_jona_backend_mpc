@@ -39,7 +39,7 @@ module.exports = (env, argv) => {
           test: /\.(ts|tsx|js|jsx)$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader",
+            loader: "ts-loader",
           },
         },
         {
@@ -55,7 +55,7 @@ module.exports = (env, argv) => {
 
     plugins: [
       new MiniCssExtractPlugin({
-        filename: '[name].[contenthash].css',
+        filename: '[name].css',
       }),
       new Dotenv(),
     ],

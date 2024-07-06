@@ -1,4 +1,7 @@
+/* React */
 import React from 'react';
+
+/* Estilos */
 import '../../resources/css/UiFooterBar.css'
 
 const UiFooterBar: React.FC = () => {

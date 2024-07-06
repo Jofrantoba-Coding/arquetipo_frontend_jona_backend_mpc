@@ -1,5 +1,10 @@
+/* React */
 import React, { Component } from 'react';
+
+/* Componentes */
 import UiButton from '../uibutton/UiButton';
+
+/* Estilos */
 import '../../resources/css/UiNotFound.css'
 
 class UiNotFound extends Component {

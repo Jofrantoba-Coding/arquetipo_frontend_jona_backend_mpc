@@ -1,7 +1,12 @@
+/* React */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+/* Componentes */
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
+
+/* Estilos */
 import './resources/css/index.css';
 
 const rootElement = document.getElementById('root');

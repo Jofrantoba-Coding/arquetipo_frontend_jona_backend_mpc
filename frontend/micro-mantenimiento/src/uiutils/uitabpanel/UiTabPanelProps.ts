@@ -1,3 +1,4 @@
+/* Interfaces */
 import { Tab } from "./UiTabPanelState";
 
 export interface UiTabPanelProps {

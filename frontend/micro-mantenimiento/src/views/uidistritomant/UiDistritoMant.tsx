@@ -1,11 +1,22 @@
+/* React */
 import React from "react";
 import { Component } from 'react';
+
+/* Librerias externas */
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+
+/* Componentes */
 import { UiDistritoMantState } from './UiDistritoMantState';
 import { UiDistritoMantProps, validationUpdateSchema, validationCreateSchema } from './UiDistritoMantProps';
 import { InterUiDistritoMantCreate, InterUiDistritoMantDelete, InterUiDistritoMantEdit, InterUiDistritoMantTitleCrud } from './InterUiDistritoMant';
+
+/* Libreria Shared */
 import { UiButton, UiIcon } from 'shared';
+
+/* Librerias CSS */
 import '../../resources/css/UiDistritoMant.css';
+import 'shared/dist/main.css'
+
 
 class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState> {
     constructor(props: UiDistritoMantProps) {

@@ -1,9 +1,21 @@
+/* React */
 import React from 'react';
+
+/* Imagenes */
 import Logo from '../../resources/images/logo-minjus.jpg'
+
+/* Cookie Storage */
 import { getToken } from '../../methods/storage';
-import { UiButton } from 'shared';
+
+/* Servicios API */
 import { logout } from '../../services/api-auth/auth';
+
+/* Interfaces */
 import { TitleBarProps } from './InterUiTitleBar';
+
+/* Libreria Shared */
+import { UiButton } from 'shared';
+
 
 const UiTitleBar: React.FC<TitleBarProps> = ({ data }) => {
   const auth = getToken()

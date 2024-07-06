@@ -58,6 +58,7 @@
     "webpack-dev-server": "^4.3.1"
   },
   "dependencies": {
+    "shared": "file:./shared",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

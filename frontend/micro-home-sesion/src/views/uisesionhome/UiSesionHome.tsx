@@ -1,16 +1,26 @@
-import React from "react";
-import { Component } from 'react';
+/* React */
+import React, { Component } from 'react';
+
+/* Componentes */
 import BorderLayout from '../../uilayouts/BorderLayout';
 import UiTitleBar from '../../uiutils/uititlebar/UiTitleBar';
 import Footer from '../../uiutils/uifooterbar/UiFooterBar';
 import UiMenuBar from '../../uiutils/uimenubar/UiMenuBar';
 import UiTabPanel from '../../uiutils/uitabpanel/UiTabPanel';
+
+/* Servicios API */
 import { getMenu } from '../../services/api-mantenimientos/menu';
 import { getCurrentProfile } from '../../services/api-mantenimientos/perfil';
+
+/* Constantes */
 import { MENU_TABS } from '../../constants/tabs';
+
+/* Interfaces */
 import { UiSesionHomeProps } from './UiSesionHomeProps';
 import { UiSesionHomeState } from './UiSesionHomeState';
 import { Tab } from '../../uiutils/uitabpanel/UiTabPanelState';
+
+/* Estilos */
 import '../../resources/css/index.css'
 
 class UiSesionHome extends Component<UiSesionHomeProps, UiSesionHomeState> {

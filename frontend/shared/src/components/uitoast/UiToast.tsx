@@ -1,4 +1,7 @@
+/* Librerias externas */
 import { ToastOptions, toast } from 'react-hot-toast';
+
+/* Interfaces */
 import { InterUiToast } from './InterUiToast';
 
 const showToast = ({ type, message, options }: InterUiToast) => {

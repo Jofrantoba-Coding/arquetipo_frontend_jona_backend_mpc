@@ -1,3 +1,4 @@
+/* Interfaces */
 export interface Tab {
     id: string;
     menuId: number;

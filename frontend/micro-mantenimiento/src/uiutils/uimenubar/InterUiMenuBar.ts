@@ -1,3 +1,4 @@
+/* Interfaces */
 export interface MenuItem {
     id: number;
     descripcion: string;

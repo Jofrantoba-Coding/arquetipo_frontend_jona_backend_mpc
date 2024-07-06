@@ -1,6 +1,8 @@
 // ProtectedRoute.js
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom'
+
+/* Cookie Storage */
 import { getToken } from './methods/storage'
 
 const ProtectedRoute = () => {

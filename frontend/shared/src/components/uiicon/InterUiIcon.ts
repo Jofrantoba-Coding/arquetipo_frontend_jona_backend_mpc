@@ -1,4 +1,4 @@
-export interface IconInterface {
+export interface InterUiIcon {
     name: string;
     size?: string | number;
     color?: string;

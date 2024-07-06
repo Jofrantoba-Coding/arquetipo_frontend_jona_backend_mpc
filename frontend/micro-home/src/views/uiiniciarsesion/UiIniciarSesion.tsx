@@ -1,7 +1,17 @@
-import React, { Component, Suspense } from 'react';
+/* React */
+import React, { Component } from 'react';
+
+/* Interfaces */
 import { UiIniciarSesionProps, validationSchema } from './UiIniciarSesionProps';
 import { UiIniciarSesionState } from './UiIniciarSesionState';
+
+/* Librerias externas */
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+
+/* Estilos CSS */
+import 'shared/dist/main.css'
+
+/* Libreria Shared */
 import { UiButton } from 'shared';
 import '../../resources/css/UiIniciarSesion.css';
 

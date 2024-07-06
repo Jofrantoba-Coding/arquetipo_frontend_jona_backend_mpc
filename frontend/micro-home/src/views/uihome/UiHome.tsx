@@ -1,9 +1,13 @@
-import React from 'react';
-import { Component } from 'react';
+/* React */
+import React, { Component } from 'react';
+
+/* Componentes */
 import UiIniciarSesionImpl from '../uiiniciarsesion/UiIniciarSesionImpl';
 import BorderLayout from '../../uilayouts/BorderLayout';
 import UiTitleBar from '../../uiutils/uititlebar/UiTitleBar';
 import UiFooterBar from '../../uiutils/uifooterbar/UiFooterBar';
+
+/* Estilos */
 import '../../resources/css/index.css';
 
 class UiHome extends Component {

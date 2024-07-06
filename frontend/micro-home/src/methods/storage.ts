@@ -1,4 +1,7 @@
+/* Librerias externas */
 import Cookies from 'js-cookie';
+
+/* Interfaces */
 import { UiTitleBarUser } from '../uiutils/uititlebar/InterUiTitleBar';
 import { UiIniciarSesionResponse } from '../views/uiiniciarsesion/InterUiIniciarSesion';
 

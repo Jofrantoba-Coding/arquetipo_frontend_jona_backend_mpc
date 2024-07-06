@@ -1,3 +1,4 @@
+/* Librerias externas */
 import Cookies from 'js-cookie';
 
 const getExpirationTime = (expiresIn: number) => {

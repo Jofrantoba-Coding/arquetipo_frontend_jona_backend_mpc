@@ -1,7 +1,14 @@
+/* React */
 import React, { Component } from 'react';
+
+/* Componentes */
 import { UiIniciarSesionProps, validationSchema } from './UiIniciarSesionProps';
 import { UiIniciarSesionState } from './UiIniciarSesionState';
+
+/* Librerias externas */
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+
+/* Libreria Shared */
 import { UiButton } from 'shared';
 
 class UiIniciarSesion extends Component<UiIniciarSesionProps, UiIniciarSesionState> {

@@ -1,4 +1,7 @@
+/* Librerias Externas */
 import axios, { AxiosRequestConfig } from "axios";
+
+/* Cookie Storage */
 import { getToken } from "../../methods/storage";
 
 export const getProvinciaByIdDepartamento = async (idDepartamento: number) => {

@@ -1,5 +1,7 @@
-import React from 'react';
-import { Component } from 'react';
+/* React */
+import React, { Component } from 'react';
+
+/* Componentes */
 import BorderLayout from '../../uilayouts/BorderLayout';
 import UiTitleBar from '../../uiutils/uititlebar/UiTitleBar';
 import Footer from '../../uiutils/uifooterbar/UiFooterBar';

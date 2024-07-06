@@ -1,9 +1,14 @@
+/* React */
 import React from 'react';
+
+/* Librerias externas */
 import { FaBeer, FaEdit, FaEye, FaPowerOff, FaSave, FaBuilding, FaTimesCircle, FaTrash, FaPlus, FaFileExcel, FaSearch, FaTimes } from 'react-icons/fa';
-import { IconInterface } from './InterUiIcon';
 import { IconType } from 'react-icons';
 
-const UiIcon: React.FC<IconInterface> = ({ name, size, color, className }) => {
+/* Interfaces */
+import { InterUiIcon } from './InterUiIcon';
+
+const UiIcon: React.FC<InterUiIcon> = ({ name, size, color, className }) => {
   const iconMap: { [key: string]: IconType } = {
     Beer: FaBeer,
     Power: FaPowerOff,

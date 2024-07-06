@@ -1,6 +1,13 @@
+/* React */
 import React from 'react';
+
+/* Imagenes */
 import Logo from '../../resources/images/logo-minjus.jpg'
+
+/* Interfaces */
 import { TitleBarProps } from './InterUiTitleBar';
+
+/* Estilos */
 import '../../resources/css/UiTitleBar.css'
 
 const UiTitleBar: React.FC<TitleBarProps> = () => {

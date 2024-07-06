@@ -1,6 +1,11 @@
+/* Interfaces */
 import { InterUiDistritoGrid } from "../uidistritogrid/InterUiDistritoGrid";
 import { InterUiDistritoMantCreate, InterUiDistritoMantEdit, InterUiDistritoMantDelete, InterUiProvincia, InterUiDepartamento } from "./InterUiDistritoMant";
+
+/* Librerias externas */
 import * as Yup from 'yup';
+
+/* Librerias externas */
 import { INVALID } from '../../constants/validation';
 
 export interface UiDistritoMantProps {

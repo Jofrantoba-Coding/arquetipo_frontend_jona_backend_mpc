@@ -1,10 +1,18 @@
+/* React */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+/* Componentes */
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
+
+/* Servicios API */
 import { scheduleTokenRefresh, requestRefreshAccessToken } from './services/api-auth/auth';
+
+/* Cookie Storage */
 import { getTokenExpiration } from './methods/storage';
-import { Toaster } from 'react-hot-toast';
+
+/* Estilos */
 import './resources/css/index.css';
 
 const rootElement = document.getElementById('root');

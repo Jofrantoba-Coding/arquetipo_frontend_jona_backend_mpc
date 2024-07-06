@@ -1,5 +1,9 @@
+
+/* Librerias Externas */
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
+
+/* Cookie Storage */
 import { clearSession, getRefreshToken, setRefreshToken, setSession, setToken, setTokenExpiration } from "../../methods/storage"
 
 interface UserLogin {

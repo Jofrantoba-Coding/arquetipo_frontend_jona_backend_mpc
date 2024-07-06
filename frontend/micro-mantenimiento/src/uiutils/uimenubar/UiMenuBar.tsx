@@ -1,4 +1,7 @@
+/* React */
 import React from 'react';
+
+/* Interfaces */
 import { MenuProps, MenuItem } from './InterUiMenuBar';
 
 const UiMenuBar: React.FC<MenuProps> = ({ data, callback }) => {
