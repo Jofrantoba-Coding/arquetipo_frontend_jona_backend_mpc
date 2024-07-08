@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+//const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack'); // Para manejar variables de entorno
 
@@ -22,6 +23,7 @@ module.exports = (env, argv) => {
   const config = configs[argv.mode] || configs.development;
   
   return {
+    mode: argv.mode || 'development',  // Establecer el modo correctamente
     output: {
       publicPath: config.PUBLIC_PATH,
     },

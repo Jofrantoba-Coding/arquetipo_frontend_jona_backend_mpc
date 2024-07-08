@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+//const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack'); // Para manejar variables de entorno
 
@@ -14,10 +15,10 @@ const configs = {
     PORT: 3000,
   },
   production: {
-    PUBLIC_PATH: "http://your.production.domain/",
-    CONTAINER_PATH: "container@http://your.production.domain/remoteEntry.js",
-    MICRO_HOME_PATH: "microHome@http://your.production.domain/remoteEntry.js",
-    MICRO_HOME_SESION_PATH: "microHomeSesion@http://your.production.domain/remoteEntry.js",
+    PUBLIC_PATH: "http://localhost:3000/",
+    CONTAINER_PATH: "container@http://localhost:3000/remoteEntry.js",
+    MICRO_HOME_PATH: "microHome@http://localhost:3001/remoteEntry.js",
+    MICRO_HOME_SESION_PATH: "microHomeSesion@http://localhost:3002/remoteEntry.js",
     PORT: 3000,
   },
 };
@@ -28,6 +29,7 @@ module.exports = (env, argv) => {
   const config = configs[argv.mode] || configs.development;
   
   return {
+    mode: argv.mode || 'development',  // Establecer el modo correctamente
     output: {
       publicPath: config.PUBLIC_PATH,
     },
@@ -79,7 +81,7 @@ module.exports = (env, argv) => {
         filename: configs.appFileName,
         remotes: {
           microHome: config.MICRO_HOME_PATH,
-          microHomeSesion: config.MICRO_HOME_SESION_PATH,
+          microHomeSesion: config.MICRO_HOME_SESION_PATH,            
         },
         shared: {
           ...deps,

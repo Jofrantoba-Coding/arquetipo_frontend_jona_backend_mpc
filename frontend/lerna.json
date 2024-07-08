@@ -1,0 +1,16 @@
+{    
+    "version": "1.0.0",
+    "npmClient": "npm",    
+    "command": {
+        "publish": {
+          "registry": "http://localhost:4873"
+        }
+      },
+      "workspaces": [
+        "container",
+        "micro-home",
+        "micro-home-sesion",
+        "micro-mantenimiento"
+      ],   
+  }
+  
