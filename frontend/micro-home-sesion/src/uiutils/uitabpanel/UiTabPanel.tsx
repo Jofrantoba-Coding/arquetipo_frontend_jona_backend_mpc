@@ -66,6 +66,7 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
               <li className="tab-item" key={tab.id}>
                   <button
                     onClick={() => this.handleTabClick(tab.id)}
+                    type="button"
                     className={`tab-button ${
                     activeTab === tab.id ? 'active' : ''
                   }`}
@@ -73,17 +74,16 @@ class UiTabPanel extends Component<UiTabPanelProps, UiTabPanelState> {
                     <UiIcon name={tab.icon} className="icon" />
                     {tab.label}
                     {activeTab === tab.id && (
-                    <button
+                    <span
                       onClick={() => {
                         this.handleTabClose(tab.id)                
                       }}
-                      type='button'
                       className="tab-close"
                     >
                       <UiIcon
                         name="CloseCircle"
                       />
-                    </button>
+                    </span>
 
                   )}
                   </button>

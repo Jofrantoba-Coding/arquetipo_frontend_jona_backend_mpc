@@ -22,6 +22,7 @@ class UiDistritoMantImpl extends UiDistritoMant {
     this.handleCreate = this.handleCreate.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleChangeDepartamento = this.handleChangeDepartamento.bind(this);
   }
 
   async loadingData() {
@@ -36,7 +37,7 @@ class UiDistritoMantImpl extends UiDistritoMant {
     });
   }
 
-  handleChangeDepartamento = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+  handleChangeDepartamento = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
     const selectedDepartamentoId = event.target.value;
     const provincias = await getProvinciaByIdDepartamento(Number(selectedDepartamentoId));
     console.log('provincias', provincias)
@@ -79,6 +80,7 @@ class UiDistritoMantImpl extends UiDistritoMant {
         handleCreate={this.handleCreate}
         handleUpdate={this.handleUpdate}
         handleDelete={this.handleDelete}
+        handleChangeDepartamento={this.handleChangeDepartamento}
         provincias={this.state.provincias}
         departamentos={this.state.departamentos}
       />

@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import { INVALID } from '../../constants/validation';
 
 export interface UiDistritoMantProps {
-    handleChangeDepartamento?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChangeDepartamento?: (event: React.ChangeEvent<HTMLSelectElement>) => Promise<void>;
     handleCreate?: (data: InterUiDistritoMantCreate) => Promise<void>;
     handleUpdate?: (data: InterUiDistritoMantEdit) => Promise<void>;
     handleDelete?: (data: InterUiDistritoMantDelete) => Promise<void>;

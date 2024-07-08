@@ -4,11 +4,6 @@
     overflow-x: auto;
 }
 
-.shadow-md-sm-rounded-lg {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    border-radius: 0.5rem;
-}
-
 .flex-container {
     display: flex;
     align-items: center;
@@ -21,10 +16,6 @@
 
 .md-flex-row {
     flex-direction: row;
-}
-
-.space-y-4-md-space-y-0 {
-    margin-bottom: 1rem;
 }
 
 .flex-gap-2 {
@@ -69,6 +60,7 @@
     font-size: 0.875rem;
     text-align: left;
     color: #6b7280;
+    border-collapse: collapse;
 }
 
 .table-head {

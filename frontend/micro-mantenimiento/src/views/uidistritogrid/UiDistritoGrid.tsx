@@ -89,8 +89,8 @@ class UiDistritoGrid extends Component<UiDistritoGridProps, UiDistritoGridState>
         const { distritos } = this.props;
         const { modalOpen, modalMode, selectedDistrito, isLoading } = this.state;
         return (
-            <div className="relative-overflow-x-auto shadow-md-sm-rounded-lg">
-                <div className="flex-container md-flex-row space-y-4-md-space-y-0">
+            <div className="relative-overflow-x-auto">
+                <div className="flex-container md-flex-row">
                     <div className="flex-gap-2">
                         <UiButton 
                             type="button" 

@@ -6,8 +6,8 @@
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "build:start": "cd dist && PORT=3000 npx serve",
-    "start": "webpack serve --open --mode development",
-    "start:live": "webpack serve --open --mode development --live-reload"
+    "start": "webpack serve --mode development",
+    "start:live": "webpack serve --mode development --live-reload"
   },
   "eslintConfig": {
     "extends": [
@@ -28,7 +28,6 @@
     ]
   },
   "devDependencies": {
-    "shared": "file:./shared",
     "@babel/core": "^7.24.7",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-transform-runtime": "^7.15.8",

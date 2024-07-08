@@ -4,7 +4,10 @@ import { getToken } from '../../methods/storage';
 import { logout } from '../../services/api-auth/auth';
 import { TitleBarProps } from './InterUiTitleBar';
 import { UiButton } from 'shared';
+
+/* Estilos */
 import '../../resources/css/UiTitleBar.css'
+import 'shared/dist/main.css'
 
 const UiTitleBar: React.FC<TitleBarProps> = ({ data }) => {
   const auth = getToken()

@@ -17,3 +17,6 @@
 ## Despliegue
 - Pasos para desplegar la aplicación.
 - Detalles sobre CI/CD.
+
+npm install -g lerna
+npx lerna run start --parallel

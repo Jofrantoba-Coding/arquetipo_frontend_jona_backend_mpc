@@ -67,11 +67,6 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
         }
     };
 
-    handleChangeDepartamento = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedValue = event.target.value;
-        console.log('event listener', selectedValue)
-    }
-
     render() {
         const { onClose, mode, departamentos, provincias } = this.props;
         const { defaultData } = this.state;
@@ -153,7 +148,7 @@ class UiDistritoMant extends Component<UiDistritoMantProps, UiDistritoMantState>
                                                     as="select"
                                                     name="departamento.id"
                                                     id="departamento-id"
-                                                    onChange={this.handleChangeDepartamento}
+                                                    onChange={this.props.handleChangeDepartamento}
                                                     className="crud-modal-input"
                                                     readOnly={!isEditable}
                                                 >

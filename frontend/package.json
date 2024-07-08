@@ -1,8 +1,11 @@
 {
-    "scripts": {
-      "install-all": "lerna bootstrap",
-      "start": "lerna run start",
-      "build": "lerna run build",
-      "test": "lerna run test"
-    }
-  }
+  "name": "microfrontend-project",
+  "version": "1.0.0",
+  "private": true,  
+  "workspaces": [
+    "container",
+    "micro-home",
+    "micro-home-sesion",
+    "micro-mantenimiento"
+  ]
+}

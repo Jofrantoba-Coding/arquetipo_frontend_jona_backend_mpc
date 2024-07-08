@@ -24,6 +24,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 2rem;
@@ -44,7 +45,6 @@
 }
 
 .tab-button:hover {
-  color: #4b5563;
   border-color: #d1d5db;
 }
 
