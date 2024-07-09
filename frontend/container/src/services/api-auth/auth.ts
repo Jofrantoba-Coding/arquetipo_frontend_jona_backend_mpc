@@ -127,7 +127,7 @@ export const logout = async (): Promise<boolean> => {
 };
 
 export const scheduleTokenRefresh = (expires_in: number) => {
-    const refreshTime = (expires_in - 60) * 1000;
+    const refreshTime = (expires_in - 5) * 1000; // menos 5 segundos
     console.log(refreshTime);
     setTimeout(requestRefreshAccessToken, refreshTime);
 };
