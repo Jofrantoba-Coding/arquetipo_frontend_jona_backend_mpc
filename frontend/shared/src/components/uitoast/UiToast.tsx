@@ -7,7 +7,7 @@ import { InterUiToast } from './InterUiToast';
 const showToast = ({ type, message, options }: InterUiToast) => {
   const defaultOptions: ToastOptions = {
     position: 'bottom-right',
-    ...options
+    ...options,
   };
 
   switch (type) {

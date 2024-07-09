@@ -4,37 +4,37 @@ import Cookies from 'js-cookie';
 const getExpirationTime = (expiresIn: number) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
   return expirationDate;
-}
+};
 
 const getUser = () => {
   const user = Cookies.get('auth_user');
   if (user) return JSON.parse(user);
   return { id: '' };
-}
+};
 
 const setUser = (user: any) => {
   Cookies.set('auth_user', JSON.stringify(user));
-}
+};
 
 const getToken = () => {
   const token = Cookies.get('access_token');
   return token ?? null;
-}
+};
 
 const setToken = (token: string, expiresIn: number) => {
   const expirationDate = getExpirationTime(expiresIn);
   Cookies.set('access_token', token, { expires: expirationDate });
-}
+};
 
 const getRefreshToken = () => {
   const token = Cookies.get('refresh_token');
   return token ?? null;
-}
+};
 
 const setRefreshToken = (token: string, expiresIn: number) => {
   const expirationDate = getExpirationTime(expiresIn);
   Cookies.set('refresh_token', token, { expires: expirationDate });
-}
+};
 
 const getSession = () => {
   const sessionString = Cookies.get('session');
@@ -48,7 +48,7 @@ const getSession = () => {
     }
   }
   return null;
-}
+};
 
 const setSession = (session: any) => {
   const { token_type, session_state, clientName, realmName, expires_in, refresh_expires_in } = session;
@@ -62,17 +62,22 @@ const setSession = (session: any) => {
     refresh_expires_in
   });
   Cookies.set('session', sessionString, { expires: expirationDate });
-}
+};
 
 const setTokenExpiration = (expires_in: number) => {
   const expirationDate = getExpirationTime(expires_in);
-  Cookies.set('token_expiration_time', expirationDate.toString(), { expires: expirationDate });
-}
+  Cookies.set('token_expiration_time', expirationDate.toISOString(), { expires: expirationDate });
+};
 
 const getTokenExpiration = () => {
   const expirationTime = Cookies.get('token_expiration_time');
-  return expirationTime ? parseInt(expirationTime) : null;
-}
+  if (expirationTime) {
+    const decodedExpirationTime = decodeURIComponent(expirationTime);
+    const expirationDate = new Date(decodedExpirationTime);
+    return expirationDate.getTime();
+  }
+  return null;
+};
 
 const clearSession = () => {
   Cookies.remove('auth_user');
@@ -80,7 +85,7 @@ const clearSession = () => {
   Cookies.remove('refresh_token');
   Cookies.remove('token_expiration_time');
   Cookies.remove('session');
-}
+};
 
 export {
   getUser,
@@ -94,4 +99,4 @@ export {
   clearSession,
   setTokenExpiration,
   getTokenExpiration
-}
+};

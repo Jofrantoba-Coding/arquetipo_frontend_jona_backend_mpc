@@ -53,6 +53,7 @@ class UiDistritoMantImpl extends UiDistritoMant {
 
   handleUpdate = async (data: InterUiDistritoMantEdit) => {
     const dataUpdate = await updateDistrito(data);
+    console.log(showToast);
     showToast({ type: 'success', message: 'Distrito actualizado' })
     console.log('dataUpdate', dataUpdate)
     this.props.onClose();

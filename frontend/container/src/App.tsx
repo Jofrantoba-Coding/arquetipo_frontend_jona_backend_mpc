@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectRouter';
 import ErrorBoundary from './ErrorBoundary';
 
+/* Librerias externas */
+import { Toaster } from 'react-hot-toast';
+
 /* Componentes de Fallback */
 const FallbackLoading = () => <div>Cargando...</div>;
 const FallbackError: React.FC = () => <div>Error al cargar el microservicio. Por favor, intenta más tarde.</div>;
@@ -26,6 +29,7 @@ const App = () => (
         </Routes>
       </Suspense>
     </ErrorBoundary>
+    <Toaster position="bottom-right" />
   </BrowserRouter>
 );
 
